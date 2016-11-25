@@ -23,10 +23,10 @@ public class StartPosition : MonoBehaviour {
         //StartCheckPosition(27, 38, CheckOnField.Black); Убрать после тестов
 
         StartCheckPosition(8, 8, CheckOnField.White);
-        StartCheckPosition(13, 13, CheckOnField.White);
-        StartCheckPosition(3, 3, CheckOnField.White);
-        StartCheckPosition(11, 12, CheckOnField.White);
-        StartCheckPosition(30, 30, CheckOnField.Black);
+        //StartCheckPosition(13, 13, CheckOnField.White);
+       // StartCheckPosition(3, 3, CheckOnField.White);
+        //StartCheckPosition(11, 12, CheckOnField.White);
+        //StartCheckPosition(30, 30, CheckOnField.Black);
 	
 	}
 	

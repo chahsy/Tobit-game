@@ -39,10 +39,11 @@ public class FieldProperty : MonoBehaviour {
     /// <summary>
     /// Свойства для чтения текущего состояния поля
     /// </summary>
-    public CheckOnField OnFieldCheck { get { return onField; } } 
+    public CheckOnField OnFieldCheck { get { return onField; } }
     /// <summary>
     /// Закрытая перменная состояния поля
     /// </summary>
+    [SerializeField]
     private CheckOnField onField;
 
     void Awake() {
@@ -58,7 +59,15 @@ public class FieldProperty : MonoBehaviour {
     {
         if (Input.GetKeyDown("space"))
         {            
-            InspectionNearFields(Direction);           
+
+            InspectionNearFields(Direction);
+            //if(OnFieldCheck != CheckOnField.Empty)
+            //{
+            //    foreach(var n in Neighbors)
+            //    {
+            //        Debug.Log(n.Value.GetComponent<FieldProperty>().OnFieldCheck.ToString());
+            //    }
+            //}           
         }
     }
 
@@ -85,33 +94,55 @@ public class FieldProperty : MonoBehaviour {
                 goto case DirectionEnum.Down;
             case DirectionEnum.Down:               
                 hit = Physics2D.Raycast(down_ray, Vector2.down, distance, layer);
-                if(hit.collider !=null)
-                    neighbors.Add(DirectionEnum.Down, hit.collider.gameObject);
+                if (hit.collider != null)
+                {
+                    DictionaryInspection(DirectionEnum.Down, hit);
+                }
                 if (dir == DirectionEnum.Anywhere)
                     goto case DirectionEnum.Left;                
                 break;
             case DirectionEnum.Left:
                 hit = Physics2D.Raycast(left_ray, Vector2.left, distance, layer);
                 if (hit.collider != null)
-                    neighbors.Add(DirectionEnum.Left, hit.collider.gameObject);
+                {
+                    DictionaryInspection(DirectionEnum.Left, hit);
+                }
                 if (dir == DirectionEnum.Anywhere)
                     goto case DirectionEnum.Right;
                 break;
             case DirectionEnum.Right:
                 hit = Physics2D.Raycast(right_ray, Vector2.right, distance, layer);
                 if (hit.collider != null)
-                    neighbors.Add(DirectionEnum.Right, hit.collider.gameObject);
+                {
+                    DictionaryInspection(DirectionEnum.Right, hit);
+                }
                 if (dir == DirectionEnum.Anywhere)
                     goto case DirectionEnum.Up;
                 break;
             case DirectionEnum.Up:
                 hit = Physics2D.Raycast(up_ray, Vector2.up, distance, layer);
                 if (hit.collider != null)
-                    neighbors.Add(DirectionEnum.Up, hit.collider.gameObject);
+                {
+                    DictionaryInspection(DirectionEnum.Up, hit);
+                }
                 break;
         }
         
                        
+    }
+    /// <summary>
+    /// Проверяем словарь на заполенение, если заданного ключа нет добавляем ключ-значение. Если есть ключ, меняем только значение.
+    /// </summary>
+    /// <param name="dir">В каком направления находится соседение поле относительно текущего(Tkey в словаре)</param>
+    /// <param name="hit">Полученый RaycastHit2D (value в словаре)</param>
+    private void DictionaryInspection(DirectionEnum dir, RaycastHit2D hit)
+    {
+        if (!neighbors.ContainsKey(dir))
+        {
+            neighbors.Add(dir, hit.collider.gameObject);
+        }
+        else
+            neighbors[dir] = hit.collider.gameObject;
     }
 
 }
