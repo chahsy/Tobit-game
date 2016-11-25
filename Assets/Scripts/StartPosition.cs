@@ -23,6 +23,9 @@ public class StartPosition : MonoBehaviour {
         //StartCheckPosition(27, 38, CheckOnField.Black); Убрать после тестов
 
         StartCheckPosition(8, 8, CheckOnField.White);
+        StartCheckPosition(13, 13, CheckOnField.White);
+        StartCheckPosition(3, 3, CheckOnField.White);
+        StartCheckPosition(11, 12, CheckOnField.White);
         StartCheckPosition(30, 30, CheckOnField.Black);
 	
 	}
@@ -42,12 +45,16 @@ public class StartPosition : MonoBehaviour {
             Debug.Log("Состояние " + field.name+':'+field.GetComponent<FieldProperty>().OnFieldCheck); // В конце удалить
             
             if (checkEnum == CheckOnField.Black) {
-                Instantiate(blackPrefab, new Vector3(0, 0, -3) + field.transform.position, Quaternion.identity);
+                GameObject black;
+                black = (GameObject)Instantiate(blackPrefab, new Vector3(0, 0, -3) + field.transform.position, Quaternion.identity);
+                black.GetComponent<Move>().OverTheField = field;
             }
 
             if(checkEnum == CheckOnField.White)
             {
-                Instantiate(whitePrefab, new Vector3(0, 0, -3) + field.transform.position, Quaternion.identity);
+                GameObject white;
+                white = (GameObject)Instantiate(whitePrefab, new Vector3(0, 0, -3) + field.transform.position, Quaternion.identity);
+                white.GetComponent<Move>().OverTheField = field;
             }
             field.GetComponent<FieldProperty>().SetOnField(checkEnum);
 

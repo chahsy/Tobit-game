@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000014040361162}
   - 212: {fileID: 212000011279841896}
   - 58: {fileID: 58000013857516496}
+  - 114: {fileID: 114000011194186082}
   m_Layer: 0
   m_Name: White
   m_TagString: White
@@ -54,7 +55,24 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.97999996
+  m_Radius: 0.38
+--- !u!114 &114000011194186082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012361536086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c42c081afdeac4d8bee592615bdb91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OppositeFigure: 1
+  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
+  distance: 10
+  layer:
+    serializedVersion: 2
+    m_Bits: 264
 --- !u!212 &212000011279841896
 SpriteRenderer:
   m_ObjectHideFlags: 1
