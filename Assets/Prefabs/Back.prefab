@@ -21,7 +21,8 @@ GameObject:
   - 4: {fileID: 4000013828886850}
   - 212: {fileID: 212000014140103516}
   - 58: {fileID: 58000013149468938}
-  - 114: {fileID: 114000012170622184}
+  - 50: {fileID: 50000012968462610}
+  - 114: {fileID: 114000012791193068}
   m_Layer: 0
   m_Name: Back
   m_TagString: Black
@@ -42,6 +43,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &50000012968462610
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011242103608}
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!58 &58000013149468938
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -55,8 +73,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.38
---- !u!114 &114000012170622184
+  m_Radius: 0.65
+--- !u!114 &114000012791193068
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,15 +82,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011242103608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c42c081afdeac4d8bee592615bdb91, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cd556a241abfb545b248320b29433de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OppositeFigure: 2
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 264
+  field: {fileID: 0}
+  color: 1
+  oppossiteColor: 2
+  tobit: 0
 --- !u!212 &212000014140103516
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -17,7 +17,7 @@ public enum DirectionEnum {
 /// <summary>
 /// Состояние поля. Пустое поле или какого цвета находится шашка на поле
 /// </summary>
-public enum CheckOnField
+public enum FigureColor
 {
     Empty,
     Black,
