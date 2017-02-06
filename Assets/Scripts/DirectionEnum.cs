@@ -11,7 +11,7 @@ public enum DirectionEnum {
     Down,
     Right,
     Left,
-    Anywhere        
+    Nothing               
 }
 
 /// <summary>

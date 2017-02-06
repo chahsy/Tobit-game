@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 public class Field : MonoBehaviour {
 
@@ -11,6 +13,7 @@ public class Field : MonoBehaviour {
     public FigureColor oppositeColorOfField;
     public bool tobitOnField;
     public Dictionary<DirectionEnum, Field> Neighbors; // ссылки на соседние поля
+    //TODO: соседи для дамки, отдельным классом? NeigborsLines?
     public DirectionEnum[] direction; //для настройки в редакторе.
     public Field[] neiborFields;
 
@@ -60,33 +63,58 @@ public class Field : MonoBehaviour {
     // Отклик на нажатие мыши
     void OnMouseDown()
     {
+       
         if(!GameController.HaveKill)
         {
-            Figure current = GameController.ActiveFigure.GetComponent<Figure>();
-            current.Clear();
-            current.field = gameObject.GetComponent<Field>();
-            current.field.FigureColors(current);
-            current.transform.position = gameObject.transform.position;
+            TranslateFigure();
             GameController.Clear();
         }
         else
         {
-            Figure current = GameController.ActiveFigure.GetComponent<Figure>();
-            current.Clear();
-            current.field = gameObject.GetComponent<Field>();
-            current.field.FigureColors(current);
-            current.transform.position = gameObject.transform.position;
-            if(GameController.DestroyFigure != null)
+            TranslateFigure();
+            GameController.HaveKill = false;
+            CheckNextKill();
+            if (!GameController.HaveKill)
             {
-                foreach(Figure fig in GameController.DestroyFigure)
-                {                    
-                    fig.DestroyFigure();
+                GameController.Clear();
+            }
+        }
+
+    }
+
+    //Проверка на следующее поедание фигуры
+    private void CheckNextKill()
+    {
+        if (GameController.DestroyFigures.Count > 0)
+        {
+            Dictionary<DirectionEnum, Field> bufferDictionary = new Dictionary<DirectionEnum, Field>(GameController.DestroyFigures);
+            GameController.DestroyFigures.Clear();
+            foreach (var field in bufferDictionary)
+            {
+                if (Neighbors.ContainsKey(field.Key))
+                {
+                    if (Neighbors[field.Key] == field.Value)
+                    {
+                        field.Value.figureOnField.DestroyFigure();
+                        EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
+                        CheckNeghbors(field.Key);
+                    }
                 }
             }
-            GameController.Clear();
         }
-        
     }
+
+    //Перемещние фигуры на новое поле
+    private void TranslateFigure()
+    {
+        Figure current = GameController.ActiveFigure.GetComponent<Figure>();
+        current.Clear();
+        current.field = gameObject.GetComponent<Field>();
+        current.field.FigureColors(current);
+        current.transform.position = gameObject.transform.position;
+    }
+
+
 
     // Сброс свойств в стандарт, объект не доступен для манипуляций
     public void Default()
@@ -130,9 +158,8 @@ public class Field : MonoBehaviour {
     }
 
     //проверка на пустое поле
-    public bool CheckEmpty()
-    {
-        if(colorOfField == FigureColor.Empty)
+    public bool CheckEmpty() {
+        if (colorOfField == FigureColor.Empty)
         {
             return true;        
         }
@@ -142,22 +169,38 @@ public class Field : MonoBehaviour {
         }
     }
 
+    //можно ли съесть фигуру
+    public bool CheckKill(FigureColor color)
+    {
+        if (color == oppositeColorOfField)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // Проверка соседей по очереди
-    public void CheckNeghbors()
+    public void CheckNeghbors(DirectionEnum exceptionDirection = DirectionEnum.Nothing)
     {
         if (!tobitOnField)
         {
-            foreach(var neighbor in Neighbors)
+            foreach (var neighbor in Neighbors)
             {
-                neighbor.Value.CheckFigure(colorOfField, neighbor.Key);
+                if (neighbor.Key != exceptionDirection)
+                {
+                    neighbor.Value.CheckFigure(colorOfField, neighbor.Key);
+                }
             }
         }
-
         if (tobitOnField)
         {
-
+            //TODO: дописать поведение для дамки
         }
     }
+   
 
     // Сравнение соседей
     public void CheckFigure(FigureColor color,DirectionEnum direction)
@@ -169,7 +212,7 @@ public class Field : MonoBehaviour {
             if(color == FigureColor.Black && direction != DirectionEnum.Up) // ходим только вперед, вправо и лево за черных
                 Accsess(false);
         }
-        if(oppositeColorOfField == color)
+        if(CheckKill(color))
         {
             CheckForKill(direction);
         }
@@ -178,19 +221,22 @@ public class Field : MonoBehaviour {
     // Проверка поля перед тем как бить
     public void CheckForKill(DirectionEnum dir)
     {
-        if (Neighbors[dir].CheckEmpty())
+        if (Neighbors.ContainsKey(dir))
         {
-            if (!GameController.HaveKill)
+            if (Neighbors[dir].CheckEmpty())
             {
-                EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
-                Neighbors[dir].Accsess(true);                
-                GameController.HaveKill = true;
+                if (!GameController.HaveKill)
+                {
+                    EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
+                    GameController.HaveKill = true;
+                    Neighbors[dir].Accsess(true);
+                }
+                else
+                {
+                    Neighbors[dir].Accsess(true);
+                }
+                GameController.AddFigure(ConvertDirection(dir), gameObject.GetComponent<Field>());
             }
-            else
-            {
-                Neighbors[dir].Accsess(true);
-            }
-            GameController.DestroyFigure.Add(figureOnField);
         }
     }
 
@@ -202,6 +248,24 @@ public class Field : MonoBehaviour {
             case EVENT_TYPE.DEFAULT:
                 Default();
                 break;
+
+        }
+    }
+
+    private DirectionEnum ConvertDirection(DirectionEnum direction)
+    {
+        switch (direction)
+        {
+            case DirectionEnum.Down:
+                return DirectionEnum.Up;                
+            case DirectionEnum.Up:
+                return DirectionEnum.Down;
+            case DirectionEnum.Right:
+                return DirectionEnum.Left;
+            case DirectionEnum.Left:
+                return DirectionEnum.Right;
+            default:
+                return DirectionEnum.Nothing;             
 
         }
     }

@@ -99,7 +99,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 23981611}
   - 58: {fileID: 23981612}
-  - 114: {fileID: 23981613}
   - 212: {fileID: 23981614}
   - 114: {fileID: 23981615}
   m_Layer: 8
@@ -136,25 +135,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &23981613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 23981610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &23981614
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -248,7 +228,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 184328483}
   - 58: {fileID: 184328484}
-  - 114: {fileID: 184328485}
   - 212: {fileID: 184328486}
   - 114: {fileID: 184328487}
   m_Layer: 8
@@ -285,25 +264,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &184328485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 184328482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &184328486
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -369,7 +329,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 189200069}
   - 58: {fileID: 189200070}
-  - 114: {fileID: 189200071}
   - 212: {fileID: 189200072}
   - 114: {fileID: 189200073}
   m_Layer: 8
@@ -407,25 +366,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &189200071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189200068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 0
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &189200072
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -658,7 +598,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 290588984}
   - 58: {fileID: 290588985}
-  - 114: {fileID: 290588986}
   - 212: {fileID: 290588987}
   - 114: {fileID: 290588988}
   m_Layer: 8
@@ -695,25 +634,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &290588986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 290588983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &290588987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -912,7 +832,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 431062467}
   - 58: {fileID: 431062468}
-  - 114: {fileID: 431062469}
   - 212: {fileID: 431062470}
   - 114: {fileID: 431062471}
   m_Layer: 8
@@ -950,25 +869,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &431062469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 431062466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &431062470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1144,7 +1044,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 598177846}
   - 58: {fileID: 598177847}
-  - 114: {fileID: 598177848}
   - 212: {fileID: 598177849}
   - 114: {fileID: 598177850}
   m_Layer: 8
@@ -1182,25 +1081,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &598177848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 598177845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 1
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &598177849
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1263,7 +1143,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 611475971}
   - 58: {fileID: 611475972}
-  - 114: {fileID: 611475973}
   - 212: {fileID: 611475974}
   - 114: {fileID: 611475975}
   m_Layer: 8
@@ -1301,25 +1180,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &611475973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 611475970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &611475974
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1385,7 +1245,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 637996424}
   - 58: {fileID: 637996425}
-  - 114: {fileID: 637996426}
   - 212: {fileID: 637996427}
   - 114: {fileID: 637996428}
   m_Layer: 8
@@ -1422,25 +1281,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &637996426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 637996423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 3
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &637996427
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1514,7 +1354,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 738612045}
   - 58: {fileID: 738612046}
-  - 114: {fileID: 738612047}
   - 212: {fileID: 738612048}
   - 114: {fileID: 738612049}
   m_Layer: 8
@@ -1551,25 +1390,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &738612047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 738612044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &738612048
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1635,7 +1455,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 749919171}
   - 58: {fileID: 749919172}
-  - 114: {fileID: 749919173}
   - 212: {fileID: 749919174}
   - 114: {fileID: 749919175}
   m_Layer: 8
@@ -1673,25 +1492,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &749919173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 749919170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &749919174
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1757,7 +1557,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 756870219}
   - 58: {fileID: 756870220}
-  - 114: {fileID: 756870221}
   - 212: {fileID: 756870222}
   - 114: {fileID: 756870223}
   m_Layer: 8
@@ -1794,25 +1593,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &756870221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 756870218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &756870222
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1878,7 +1658,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 774993009}
   - 58: {fileID: 774993010}
-  - 114: {fileID: 774993011}
   - 212: {fileID: 774993012}
   - 114: {fileID: 774993013}
   m_Layer: 8
@@ -1916,25 +1695,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &774993011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 774993008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 1
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &774993012
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1997,7 +1757,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 823150576}
   - 58: {fileID: 823150577}
-  - 114: {fileID: 823150578}
   - 212: {fileID: 823150579}
   - 114: {fileID: 823150580}
   m_Layer: 8
@@ -2035,25 +1794,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &823150578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 823150575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 2
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &823150579
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2116,7 +1856,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 850057628}
   - 58: {fileID: 850057629}
-  - 114: {fileID: 850057630}
   - 212: {fileID: 850057631}
   - 114: {fileID: 850057632}
   m_Layer: 8
@@ -2153,25 +1892,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &850057630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 850057627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &850057631
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2237,7 +1957,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 854789025}
   - 58: {fileID: 854789026}
-  - 114: {fileID: 854789027}
   - 212: {fileID: 854789028}
   - 114: {fileID: 854789029}
   m_Layer: 8
@@ -2274,25 +1993,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &854789027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 854789024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &854789028
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2358,7 +2058,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 888575460}
   - 58: {fileID: 888575461}
-  - 114: {fileID: 888575462}
   - 212: {fileID: 888575463}
   - 114: {fileID: 888575464}
   m_Layer: 8
@@ -2396,25 +2095,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &888575462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 888575459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 2
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &888575463
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2477,7 +2157,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 911202132}
   - 58: {fileID: 911202133}
-  - 114: {fileID: 911202134}
   - 212: {fileID: 911202135}
   - 114: {fileID: 911202136}
   m_Layer: 8
@@ -2515,25 +2194,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &911202134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 911202131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 3
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &911202135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2596,7 +2256,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 925654195}
   - 58: {fileID: 925654196}
-  - 114: {fileID: 925654197}
   - 212: {fileID: 925654198}
   - 114: {fileID: 925654199}
   m_Layer: 8
@@ -2633,25 +2292,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &925654197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 925654194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &925654198
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2717,7 +2357,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 943933309}
   - 58: {fileID: 943933310}
-  - 114: {fileID: 943933311}
   - 212: {fileID: 943933312}
   - 114: {fileID: 943933313}
   m_Layer: 8
@@ -2754,25 +2393,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &943933311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 943933308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &943933312
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2838,7 +2458,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 944988448}
   - 58: {fileID: 944988449}
-  - 114: {fileID: 944988450}
   - 212: {fileID: 944988451}
   - 114: {fileID: 944988452}
   m_Layer: 8
@@ -2876,25 +2495,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &944988450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 944988447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &944988451
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3070,7 +2670,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1005303141}
   - 58: {fileID: 1005303142}
-  - 114: {fileID: 1005303143}
   - 212: {fileID: 1005303144}
   - 114: {fileID: 1005303145}
   m_Layer: 8
@@ -3108,25 +2707,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1005303143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1005303140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 3
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1005303144
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3341,7 +2921,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1135813884}
   - 58: {fileID: 1135813885}
-  - 114: {fileID: 1135813886}
   - 212: {fileID: 1135813887}
   - 114: {fileID: 1135813888}
   m_Layer: 8
@@ -3379,25 +2958,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1135813886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1135813883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 0
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1135813887
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3570,7 +3130,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1226743412}
   - 58: {fileID: 1226743413}
-  - 114: {fileID: 1226743414}
   - 212: {fileID: 1226743415}
   - 114: {fileID: 1226743416}
   m_Layer: 8
@@ -3607,25 +3166,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1226743414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1226743411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 2
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1226743415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3694,7 +3234,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1241037357}
   - 58: {fileID: 1241037358}
-  - 114: {fileID: 1241037359}
   - 212: {fileID: 1241037360}
   - 114: {fileID: 1241037361}
   m_Layer: 8
@@ -3732,25 +3271,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1241037359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1241037356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1241037360
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3816,7 +3336,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1242831782}
   - 58: {fileID: 1242831783}
-  - 114: {fileID: 1242831784}
   - 212: {fileID: 1242831785}
   - 114: {fileID: 1242831786}
   m_Layer: 8
@@ -3854,25 +3373,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1242831784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1242831781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1242831785
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4141,7 +3641,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1416751994}
   - 58: {fileID: 1416751995}
-  - 114: {fileID: 1416751996}
   - 212: {fileID: 1416751997}
   - 114: {fileID: 1416751998}
   m_Layer: 8
@@ -4178,25 +3677,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1416751996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1416751993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 2
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1416751997
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4311,7 +3791,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1452019142}
   - 58: {fileID: 1452019143}
-  - 114: {fileID: 1452019144}
   - 212: {fileID: 1452019145}
   - 114: {fileID: 1452019146}
   m_Layer: 8
@@ -4349,25 +3828,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1452019144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1452019141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 1
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1452019145
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4430,7 +3890,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1482235977}
   - 58: {fileID: 1482235978}
-  - 114: {fileID: 1482235979}
   - 212: {fileID: 1482235980}
   - 114: {fileID: 1482235981}
   m_Layer: 8
@@ -4468,25 +3927,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1482235979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1482235976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1482235980
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4715,7 +4155,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1634016571}
   - 58: {fileID: 1634016572}
-  - 114: {fileID: 1634016573}
   - 212: {fileID: 1634016574}
   - 114: {fileID: 1634016575}
   m_Layer: 8
@@ -4753,25 +4192,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1634016573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1634016570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 0
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1634016574
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4845,7 +4265,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1662657276}
   - 58: {fileID: 1662657277}
-  - 114: {fileID: 1662657278}
   - 212: {fileID: 1662657279}
   - 114: {fileID: 1662657280}
   m_Layer: 8
@@ -4882,25 +4301,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1662657278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1662657275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 3
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1662657279
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4963,7 +4363,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1702082243}
   - 58: {fileID: 1702082244}
-  - 114: {fileID: 1702082245}
   - 212: {fileID: 1702082246}
   - 114: {fileID: 1702082247}
   m_Layer: 8
@@ -5001,25 +4400,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1702082245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1702082242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 1
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1702082246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5240,7 +4620,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1817171352}
   - 58: {fileID: 1817171353}
-  - 114: {fileID: 1817171354}
   - 212: {fileID: 1817171355}
   - 114: {fileID: 1817171356}
   m_Layer: 8
@@ -5278,25 +4657,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1817171354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1817171351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1817171355
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5414,7 +4774,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1890527807}
   - 58: {fileID: 1890527808}
-  - 114: {fileID: 1890527809}
   - 212: {fileID: 1890527810}
   - 114: {fileID: 1890527811}
   m_Layer: 8
@@ -5452,25 +4811,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1890527809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1890527806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 0
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1890527810
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5627,7 +4967,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1936153003}
   - 58: {fileID: 1936153004}
-  - 114: {fileID: 1936153005}
   - 212: {fileID: 1936153006}
   - 114: {fileID: 1936153007}
   m_Layer: 8
@@ -5665,25 +5004,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &1936153005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1936153002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 1
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &1936153006
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5752,7 +5072,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2009320545}
   - 58: {fileID: 2009320546}
-  - 114: {fileID: 2009320547}
   - 212: {fileID: 2009320548}
   - 114: {fileID: 2009320549}
   m_Layer: 8
@@ -5790,25 +5109,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &2009320547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2009320544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &2009320548
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5925,7 +5225,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2098758120}
   - 58: {fileID: 2098758121}
-  - 114: {fileID: 2098758122}
   - 212: {fileID: 2098758123}
   - 114: {fileID: 2098758124}
   m_Layer: 8
@@ -5962,25 +5261,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &2098758122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2098758119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &2098758123
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6057,7 +5337,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2142003770}
   - 58: {fileID: 2142003771}
-  - 114: {fileID: 2142003772}
   - 212: {fileID: 2142003773}
   - 114: {fileID: 2142003774}
   m_Layer: 8
@@ -6095,25 +5374,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &2142003772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2142003769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 4
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &2142003773
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6179,7 +5439,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2147424928}
   - 58: {fileID: 2147424929}
-  - 114: {fileID: 2147424930}
   - 212: {fileID: 2147424931}
   - 114: {fileID: 2147424932}
   m_Layer: 8
@@ -6217,25 +5476,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
---- !u!114 &2147424930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2147424927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f31905325ea314dba425c0c2b0b630, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1584782cf056c394597b1b3f74214677, type: 3}
-  redSprite: {fileID: 21300000, guid: c605bd2158d60e74388571e3d35ba15f, type: 3}
-  direction: 0
-  distance: 10
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  killer: 0
 --- !u!212 &2147424931
 SpriteRenderer:
   m_ObjectHideFlags: 0

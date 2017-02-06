@@ -44,7 +44,7 @@ public class Figure : MonoBehaviour {
         }
         else
         {
-            GameController.Clear();
+            GameController.Clear();           
             field.CheckNeghbors();
             GameController.ActiveFigure = gameObject;
         }
