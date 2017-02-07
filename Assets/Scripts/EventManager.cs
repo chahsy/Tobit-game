@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public enum EVENT_TYPE
 {
     DEFAULT,
-    KILL
+    SWITCH
 };
 
-public class EventManager : MonoBehaviour {
+public class EventManager : MonoBehaviour  {
     // реализация синглтона
 	public static EventManager Instance { get { return instance; } set { } }
 
@@ -46,6 +46,16 @@ public class EventManager : MonoBehaviour {
         ListenList = new List<OnEvent>();
         ListenList.Add(Listener);
         Listeners.Add(Event_type, ListenList);
+    }
+
+    public void RemoveListener(EVENT_TYPE Event_type, OnEvent Listener)
+    {
+        List<OnEvent> ListenList = null;
+        if (Listeners.TryGetValue(Event_type, out ListenList))
+        {
+            ListenList.Remove(Listener);
+            return;
+        }
     }
     
     public void PostNotification(EVENT_TYPE Event_type,GameObject Sender = null, object Param = null)

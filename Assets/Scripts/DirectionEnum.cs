@@ -2,6 +2,12 @@
 using System.Collections;
 
 
+public interface IGameManager
+{
+    ManagerStatus status { get; }
+
+    void Startup();
+}
 
 /// <summary>
 /// Перечисление. В какие направления можно ходить с этого поля.
@@ -22,4 +28,11 @@ public enum FigureColor
     Empty,
     Black,
     White
+}
+
+public enum ManagerStatus
+{
+    Shutdown,
+    Initializing,
+    Started
 }

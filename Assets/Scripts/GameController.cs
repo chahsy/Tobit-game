@@ -1,54 +1,140 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class GameController : MonoBehaviour {
-
-    //TODO: Контроль хода, отключение и включение коллайдеров, для белых или черных фигур
-
-    //TODO: Контроль выйгрыша, если количество фигур белых или черных = 0, то выйграли черные или белые.
-
-    //TODO: Синглтон паттерн, контроллер должен быть один, оформить диспетчер контроллеров (GameController EventManager), использовать готовый фреймворк
-
-
+public class GameController : MonoBehaviour, IGameManager {
     
+    private bool changeActivePlayer;
 
-    // Активная фигура для перемещения
-    public static GameObject ActiveFigure { get; set; }
-    // Фигуры для поедения  
-    public static Dictionary<DirectionEnum,Field> DestroyFigures;
-    // Есть ход для "битья" фигуры
-    public static bool HaveKill;
-
-    void Start()
-    {
-        DestroyFigures = new Dictionary<DirectionEnum, Field>();
-        ActiveFigure = null;
-        HaveKill = false;
-        
+    //TODO: Доработать, вызов метода о прекращении игры если кто то достиг 0.
+    //TODO: Добавить UI, статистика количество фиугр на поле
+    public int WhiteFigures {
+        get
+        {
+          return whiteFigures;
+        }
+        set
+        {
+          whiteFigures = value;
+          Debug.Log("Осталось белых фигур: " + whiteFigures);
+        }
     }
 
-    // Очистка переменных и подсцветки
-    public static void Clear()
+    public int BlackFigures
     {
-        if(ActiveFigure != null)
-            ActiveFigure = null;
-        if (DestroyFigures.Count > 0)
-            DestroyFigures.Clear();
-        if (HaveKill)
-            HaveKill = false;
+        get
+        {
+            return blackFigures;
+        }
+        set
+        {
+            blackFigures = value;
+            Debug.Log("Осталось черных фигур: " + blackFigures);
+        }
+    }
+
+    private int whiteFigures;
+    private int blackFigures;
+
+    // Активная фигура для перемещения
+    public GameObject ActiveFigure { get; set; }
+    //Статус контроллера
+    public ManagerStatus status { get; private set; }
+
+    // Фигуры для поедения  
+    public Dictionary<DirectionEnum, Field> DestroyFigures;
+    // Есть ход для "битья" фигуры
+    public bool HaveKill { get; set; }
+
+
+    // Очистка переменных и подсцветки
+    public void Clear()
+    {
+        if (Managers.GameManager.ActiveFigure != null)
+            Managers.GameManager.ActiveFigure = null;
+        if (Managers.GameManager.DestroyFigures.Count > 0)
+            Managers.GameManager.DestroyFigures.Clear();
+        if (Managers.GameManager.HaveKill)
+            Managers.GameManager.HaveKill = false;        
         EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
     }
 
     // Добавление фигур для "битья", проверка перед добавлением.
-    public static void AddFigure(DirectionEnum dir, Field fil)
+    public void AddFigure(DirectionEnum dir, Field fil)
     {
-        if(DestroyFigures.ContainsKey(dir))
+        if (Managers.GameManager.DestroyFigures.ContainsKey(dir))
         {
-            DestroyFigures[dir] = fil;
+            Managers.GameManager.DestroyFigures[dir] = fil;
         }
-        DestroyFigures.Add(dir, fil);
+        Managers.GameManager.DestroyFigures.Add(dir, fil);
     }
 
-    
+    // Запуск контроллера, начальные настройки
+    public void Startup()
+    {
+        Debug.Log("Game manager starting...");
+        DestroyFigures = new Dictionary<DirectionEnum, Field>();
+        ActiveFigure = null;
+        HaveKill = false;
+        WhiteFigures = 0;
+        BlackFigures = 0;
+        changeActivePlayer = true;
+        StartCoroutine(FindFigures());
+        status = ManagerStatus.Started;
+    }
+
+    //Поиск фигур на поле, для отчета
+    private IEnumerator FindFigures()
+    {
+        yield return new WaitForSeconds(1);
+
+
+        WhiteFigures = FiguresNumbers("White");
+        Debug.Log("Белых фигур на поле: " + WhiteFigures);
+
+        yield return null;
+
+        BlackFigures = FiguresNumbers("Black");
+        Debug.Log("Черных фигур на поле: " + BlackFigures);
+
+        yield return null;
+
+        ChangeFigureColliders();
+    }
+
+    // Функция возварщает количество объектов с определенным ТЭГОМ
+    private int FiguresNumbers(string tag)
+    {
+        GameObject[] bufferWhiteGameObjects = GameObject.FindGameObjectsWithTag(tag);
+        return bufferWhiteGameObjects.Length;
+    }
+
+    //Функция смены активного игрока (белые или черные фигуры) 
+    public void ChangeActivePlayer() {
+
+        if (changeActivePlayer)
+        {
+            changeActivePlayer = false;
+            ChangeFigureColliders();
+        }
+        else
+        {
+            changeActivePlayer = true;
+            ChangeFigureColliders();
+        }
+        
+    }
+    //вызывает события включения отключения коллайдера у фигур
+    private void ChangeFigureColliders()
+    {
+        if (changeActivePlayer)
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.SWITCH, Param: FigureColor.White);
+        }
+        else
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.SWITCH, Param: FigureColor.Black);
+        }
+    }
 }

@@ -64,19 +64,23 @@ public class Field : MonoBehaviour {
     void OnMouseDown()
     {
        
-        if(!GameController.HaveKill)
+        if(!Managers.GameManager.HaveKill)
         {
+            //TODO: Добавить звуковой эффект
             TranslateFigure();
-            GameController.Clear();
+            Managers.GameManager.Clear();
+            Managers.GameManager.ChangeActivePlayer();
         }
         else
         {
+            //TODO: Добавить звуковой эффект
             TranslateFigure();
-            GameController.HaveKill = false;
+            Managers.GameManager.HaveKill = false;
             CheckNextKill();
-            if (!GameController.HaveKill)
+            if (!Managers.GameManager.HaveKill)
             {
-                GameController.Clear();
+                Managers.GameManager.Clear();
+                Managers.GameManager.ChangeActivePlayer();
             }
         }
 
@@ -85,10 +89,10 @@ public class Field : MonoBehaviour {
     //Проверка на следующее поедание фигуры
     private void CheckNextKill()
     {
-        if (GameController.DestroyFigures.Count > 0)
+        if (Managers.GameManager.DestroyFigures.Count > 0)
         {
-            Dictionary<DirectionEnum, Field> bufferDictionary = new Dictionary<DirectionEnum, Field>(GameController.DestroyFigures);
-            GameController.DestroyFigures.Clear();
+            Dictionary<DirectionEnum, Field> bufferDictionary = new Dictionary<DirectionEnum, Field>(Managers.GameManager.DestroyFigures);
+            Managers.GameManager.DestroyFigures.Clear();
             foreach (var field in bufferDictionary)
             {
                 if (Neighbors.ContainsKey(field.Key))
@@ -107,7 +111,7 @@ public class Field : MonoBehaviour {
     //Перемещние фигуры на новое поле
     private void TranslateFigure()
     {
-        Figure current = GameController.ActiveFigure.GetComponent<Figure>();
+        Figure current = Managers.GameManager.ActiveFigure.GetComponent<Figure>();
         current.Clear();
         current.field = gameObject.GetComponent<Field>();
         current.field.FigureColors(current);
@@ -205,7 +209,7 @@ public class Field : MonoBehaviour {
     // Сравнение соседей
     public void CheckFigure(FigureColor color,DirectionEnum direction)
     {
-        if(CheckEmpty() && !GameController.HaveKill)
+        if(CheckEmpty() && !Managers.GameManager.HaveKill)
         {
             if(color == FigureColor.White && direction != DirectionEnum.Down) // ходим только вперед, вправо и лево за белых
                 Accsess(false);
@@ -225,17 +229,17 @@ public class Field : MonoBehaviour {
         {
             if (Neighbors[dir].CheckEmpty())
             {
-                if (!GameController.HaveKill)
+                if (!Managers.GameManager.HaveKill)
                 {
                     EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
-                    GameController.HaveKill = true;
+                    Managers.GameManager.HaveKill = true;
                     Neighbors[dir].Accsess(true);
                 }
                 else
                 {
                     Neighbors[dir].Accsess(true);
                 }
-                GameController.AddFigure(ConvertDirection(dir), gameObject.GetComponent<Field>());
+                Managers.GameManager.AddFigure(ConvertDirection(dir), gameObject.GetComponent<Field>());
             }
         }
     }
