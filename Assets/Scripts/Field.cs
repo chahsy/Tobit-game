@@ -12,11 +12,10 @@ public class Field : MonoBehaviour {
     public FigureColor colorOfField;
     public FigureColor oppositeColorOfField;
     public bool tobitOnField;
-    public Dictionary<DirectionEnum, Field> Neighbors; // ссылки на соседние поля
-    //TODO: соседи для дамки, отдельным классом? NeigborsLines?
-    public DirectionEnum[] direction; //для настройки в редакторе.
-    public Field[] neiborFields;
-
+    #region Neighbors
+    public Dictionary<DirectionEnum, Field> Neighbors;  // ссылки на соседние поля
+    public Dictionary<DirectionEnum, List<Field>> TobitNeighbors;  
+    #endregion
 
     public Sprite red; // Подсцветка полей во время хода
     public Sprite green;
@@ -39,17 +38,11 @@ public class Field : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        coll2D = gameObject.GetComponent<Collider2D>();
-        FieldCollEnable = false;
-
-        FigureColors(figureOnField);
-
+        coll2D = gameObject.GetComponent<Collider2D>();        
         Neighbors = new Dictionary<DirectionEnum, Field>();
-
-        for(int i = 0; i < direction.Length; i++)
-        {
-            Neighbors.Add(direction[i], neiborFields[i]);
-        }
+        TobitNeighbors = new Dictionary<DirectionEnum, List<Field>>();
+        FigureColors(figureOnField);
+        
 
         EventManager.Instance.AddListener(EVENT_TYPE.DEFAULT, OnEvent);
 

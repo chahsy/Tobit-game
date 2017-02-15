@@ -12,12 +12,12 @@ public class GameController : MonoBehaviour, IGameManager {
     public int WhiteFigures {
         get
         {
-          return whiteFigures;
+          return _whiteFigures;
         }
         set
         {
-          whiteFigures = value;
-          Debug.Log("Осталось белых фигур: " + whiteFigures);
+          _whiteFigures = value;
+          Debug.Log("Осталось белых фигур: " + _whiteFigures);
         }
     }
 
@@ -25,17 +25,17 @@ public class GameController : MonoBehaviour, IGameManager {
     {
         get
         {
-            return blackFigures;
+            return _blackFigures;
         }
         set
         {
-            blackFigures = value;
-            Debug.Log("Осталось черных фигур: " + blackFigures);
+            _blackFigures = value;
+            Debug.Log("Осталось черных фигур: " + _blackFigures);
         }
     }
 
-    private int whiteFigures;
-    private int blackFigures;
+    private int _whiteFigures;
+    private int _blackFigures;
 
     // Активная фигура для перемещения
     public GameObject ActiveFigure { get; set; }

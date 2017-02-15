@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(GameController))]
+[RequireComponent(typeof(UtilityClass))]
 // TODO: Добавить менеджер фонового звука.
 
 public class Managers : MonoBehaviour {
 
     public static GameController GameManager { get; private set; }
+    public static UtilityClass UtilityManager { get; private set; }
 
     private List<IGameManager> _startSequence;
 
     void Awake()
     {
         GameManager = GetComponent<GameController>();
+        UtilityManager = GetComponent<UtilityClass>();
 
         _startSequence = new List<IGameManager>();
         _startSequence.Add(GameManager);
+        _startSequence.Add(UtilityManager);
         StartCoroutine(StartupManagers());
     }
 
@@ -53,6 +57,7 @@ public class Managers : MonoBehaviour {
         }
 
         Debug.Log("Все контроллеры запущены!");
+        
     }
 
     

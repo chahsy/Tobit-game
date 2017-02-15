@@ -37,7 +37,7 @@ public class Figure : MonoBehaviour {
     }
 
     void OnMouseDown()
-    {
+    {       
         if (Managers.GameManager.ActiveFigure == null) 
         {
             field.CheckNeghbors();
