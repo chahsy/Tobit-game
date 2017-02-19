@@ -9,9 +9,8 @@ public interface IGameManager
     void Startup();
 }
 
-/// <summary>
-/// Перечисление. В какие направления можно ходить с этого поля.
-/// </summary>
+
+// Перечисление. В какие направления можно ходить с этого поля.
 public enum DirectionEnum { 
     Up,
     Down,
@@ -20,9 +19,8 @@ public enum DirectionEnum {
     Nothing               
 }
 
-/// <summary>
-/// Состояние поля. Пустое поле или какого цвета находится шашка на поле
-/// </summary>
+
+// Состояние поля. Пустое поле или какого цвета находится шашка на поле
 public enum FigureColor
 {
     Empty,

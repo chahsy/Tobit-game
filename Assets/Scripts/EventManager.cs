@@ -10,7 +10,7 @@ public enum EVENT_TYPE
 
 public class EventManager : MonoBehaviour  {
     // реализация синглтона
-	public static EventManager Instance { get { return instance; } set { } }
+	public static EventManager Instance { get { return instance; } }
 
     private static EventManager instance = null;
 

@@ -4,16 +4,37 @@ using System;
 
 public class Figure : MonoBehaviour {
 
-    public Field field; // ссылка на поле которое находится под фигурой
-    private Collider2D currentColl; 
+    public Field Field
+    { 
+        get
+        {
+            return _field;
+        }
+        set
+        {
+            if (value != null && !Tobit)
+            {
+                CanToTransformTobit(value);
+            }
+            _field = value;
+            
+        }
+    } // ссылка на поле под фигурой
+    private Collider2D currentColl; // ссылка на коллайдер
     public FigureColor color;  // цвет фигуры
     public FigureColor oppossiteColor; // противположный цвет
-    public bool tobit; // является ли фигура дамкой
+    [SerializeField]
+    private Field _field; // ссылка на поле которое находится под фигурой
+    [SerializeField]
+    private Sprite _whiteTobit;
+    [SerializeField]
+    private Sprite _blackTobit;
+    public bool Tobit { get; set; } // является ли фигура дамкой
 
-
+    
 	// Use this for initialization
 	void Start () {
-        tobit = false;
+        Tobit = false;
         currentColl = gameObject.GetComponent<Collider2D>();
         currentColl.enabled = false;
         EventManager.Instance.AddListener(EVENT_TYPE.SWITCH, OnEvent);
@@ -23,8 +44,8 @@ public class Figure : MonoBehaviour {
     // Очищаем ссылки из поля на фигуру и убираем ссылку на самое поле
     public void Clear()
     {
-        field.Clear();
-        field = null;
+        Field.Clear();
+        Field = null;
     }
 
     // Уничтожаем фигуру при "битье"
@@ -40,8 +61,8 @@ public class Figure : MonoBehaviour {
     {       
         if (Managers.GameManager.ActiveFigure == null) 
         {
-            field.CheckNeghbors();
             Managers.GameManager.ActiveFigure = gameObject;
+            Field.CheckNeghbors();            
         }
         else if(Managers.GameManager.ActiveFigure == gameObject)
         {
@@ -49,9 +70,10 @@ public class Figure : MonoBehaviour {
         }
         else
         {
-            Managers.GameManager.Clear();           
-            field.CheckNeghbors();
+            Managers.GameManager.Clear();
             Managers.GameManager.ActiveFigure = gameObject;
+            Field.CheckNeghbors();
+            
         }
                
     }
@@ -92,6 +114,35 @@ public class Figure : MonoBehaviour {
         if(color == FigureColor.White)
         {
             Managers.GameManager.WhiteFigures--;
+        }
+    }
+
+    //Проверяем может ли фигура стать дамкой (по правилам игры дамка называется Тобит).
+    private void CanToTransformTobit(Field value)
+    {
+        if (color == FigureColor.White)
+        {
+            string[] namesOfFields = { "34", "35", "36", "37", "38" };
+            foreach (string nameOfField in namesOfFields)
+            {
+                if (nameOfField == value.name)
+                {
+                    Tobit = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = _whiteTobit;
+                }
+            }
+        }
+        if (color == FigureColor.Black)
+        {
+            string[] namesOfFields = { "1", "2", "3", "4", "5" };
+            foreach (string nameOfField in namesOfFields)
+            {
+                if (nameOfField == value.name)
+                {
+                    Tobit = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = _blackTobit;
+                }
+            }
         }
     }
 }

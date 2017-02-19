@@ -7,8 +7,8 @@ using System.Linq;
 public class Field : MonoBehaviour {
 
     #region Переменные
-
-    public Figure figureOnField;    // фигура над полем
+    //TODO: Убрать ссылку на поле, оставить только цвет от фигуры, сделать метод для присвоения.
+    public Figure figureOnField;    // фигура над полем 
     public FigureColor colorOfField;
     public FigureColor oppositeColorOfField;
     public bool tobitOnField;
@@ -88,9 +88,9 @@ public class Field : MonoBehaviour {
             Managers.GameManager.DestroyFigures.Clear();
             foreach (var field in bufferDictionary)
             {
-                if (Neighbors.ContainsKey(field.Key))
+                if (TobitNeighbors.ContainsKey(field.Key))
                 {
-                    if (Neighbors[field.Key] == field.Value)
+                    if (TobitNeighbors[field.Key].Contains(field.Value))
                     {
                         field.Value.figureOnField.DestroyFigure();
                         EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
@@ -98,7 +98,7 @@ public class Field : MonoBehaviour {
                     }
                 }
             }
-        }
+        }    
     }
 
     //Перемещние фигуры на новое поле
@@ -106,8 +106,8 @@ public class Field : MonoBehaviour {
     {
         Figure current = Managers.GameManager.ActiveFigure.GetComponent<Figure>();
         current.Clear();
-        current.field = gameObject.GetComponent<Field>();
-        current.field.FigureColors(current);
+        current.Field = gameObject.GetComponent<Field>();
+        current.Field.FigureColors(current);
         current.transform.position = gameObject.transform.position;
     }
 
@@ -143,7 +143,7 @@ public class Field : MonoBehaviour {
             figureOnField = figu;
             colorOfField = figu.color;
             oppositeColorOfField = figu.oppossiteColor;
-            tobitOnField = figu.tobit;
+            tobitOnField = figu.Tobit;
         }
         else
         {
@@ -194,7 +194,7 @@ public class Field : MonoBehaviour {
         }
         if (tobitOnField)
         {
-            //TODO: дописать поведение для дамки
+            Managers.UtilityManager.ProcessCourseTobit(this);
         }
     }
    
@@ -202,12 +202,19 @@ public class Field : MonoBehaviour {
     // Сравнение соседей
     public void CheckFigure(FigureColor color,DirectionEnum direction)
     {
-        if(CheckEmpty() && !Managers.GameManager.HaveKill)
+        if (CheckEmpty() && !Managers.GameManager.HaveKill)
         {
-            if(color == FigureColor.White && direction != DirectionEnum.Down) // ходим только вперед, вправо и лево за белых
+            if (Managers.GameManager.ActiveFigure.GetComponent<Figure>().Tobit)
+            {
                 Accsess(false);
-            if(color == FigureColor.Black && direction != DirectionEnum.Up) // ходим только вперед, вправо и лево за черных
-                Accsess(false);
+            }
+            else
+            {
+                if (color == FigureColor.White && direction != DirectionEnum.Down) // ходим только вперед, вправо и лево за белых
+                    Accsess(false);
+                if (color == FigureColor.Black && direction != DirectionEnum.Up) // ходим только вперед, вправо и лево за черных
+                    Accsess(false);
+            }
         }
         if(CheckKill(color))
         {
@@ -226,13 +233,13 @@ public class Field : MonoBehaviour {
                 {
                     EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
                     Managers.GameManager.HaveKill = true;
-                    Neighbors[dir].Accsess(true);
+                    Neighbors[dir].Accsess(true);                   
                 }
                 else
                 {
-                    Neighbors[dir].Accsess(true);
+                    Neighbors[dir].Accsess(true);                    
                 }
-                Managers.GameManager.AddFigure(ConvertDirection(dir), gameObject.GetComponent<Field>());
+                Managers.GameManager.AddFigure(Managers.UtilityManager.ConvertDirection(dir), gameObject.GetComponent<Field>());
             }
         }
     }
@@ -249,21 +256,84 @@ public class Field : MonoBehaviour {
         }
     }
 
-    private DirectionEnum ConvertDirection(DirectionEnum direction)
+    // Возвращает все поля в которых есть продолжение поедания фигуры соперника
+    public List<Field> FindAllNextFields(DirectionEnum direction)
     {
-        switch (direction)
-        {
-            case DirectionEnum.Down:
-                return DirectionEnum.Up;                
-            case DirectionEnum.Up:
-                return DirectionEnum.Down;
-            case DirectionEnum.Right:
-                return DirectionEnum.Left;
-            case DirectionEnum.Left:
-                return DirectionEnum.Right;
-            default:
-                return DirectionEnum.Nothing;             
+        List<Field> subFindList = new List<Field>();
 
+        foreach (var neighbor in TobitNeighbors[direction])
+        {
+            if (neighbor.CheckEmpty())
+            {
+                if (direction == DirectionEnum.Up || direction == DirectionEnum.Down)
+                {
+                    if (neighbor.Neighbors.ContainsKey(DirectionEnum.Right))
+                    {
+                        if (neighbor.IspectionForKillInCollection(DirectionEnum.Right))
+                        {
+                            subFindList.Add(neighbor);
+                        }
+                    }
+                    if (!subFindList.Contains(neighbor))
+                    {
+                        if (neighbor.Neighbors.ContainsKey(DirectionEnum.Left))
+                        {
+                            if (neighbor.IspectionForKillInCollection(DirectionEnum.Left))
+                            {
+                                subFindList.Add(neighbor);
+                            }
+                        }
+                    }
+                                      
+                }
+                if (direction == DirectionEnum.Right || direction == DirectionEnum.Left)
+                {
+                    if (neighbor.Neighbors.ContainsKey(DirectionEnum.Up))
+                    {
+                        if (neighbor.IspectionForKillInCollection(DirectionEnum.Up))
+                        {
+                            subFindList.Add(neighbor);
+                        }
+                    }
+                    if (!subFindList.Contains(neighbor))
+                    {
+                        if (neighbor.Neighbors.ContainsKey(DirectionEnum.Down))
+                        {
+                            if (neighbor.IspectionForKillInCollection(DirectionEnum.Down))
+                            {
+                                subFindList.Add(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                break;
+            }
         }
+        return subFindList;
+    }
+
+    // Возвращает true если есть возможность для поедании фигуры сопераника (дамкой) в этом направлении
+    private bool IspectionForKillInCollection(DirectionEnum first)
+    {
+        bool trigger = false;
+
+        Field subField = TobitNeighbors[first].Find(Managers.UtilityManager.FindFirstNonEmptyInCollection);        
+        if (subField != null && subField.colorOfField != Managers.GameManager.ActiveFigure.GetComponent<Figure>().color)
+        {
+            if (subField.Neighbors.ContainsKey(first))
+            {
+                if (subField.Neighbors[first].CheckEmpty())
+                {
+                    trigger = true;
+                }
+            }
+        }      
+
+
+        return trigger;
+        
     }
 }

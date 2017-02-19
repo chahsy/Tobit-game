@@ -6,6 +6,7 @@ using System;
 public class GameController : MonoBehaviour, IGameManager {
     
     private bool changeActivePlayer;
+    
 
     //TODO: Доработать, вызов метода о прекращении игры если кто то достиг 0.
     //TODO: Добавить UI, статистика количество фиугр на поле
@@ -36,9 +37,20 @@ public class GameController : MonoBehaviour, IGameManager {
 
     private int _whiteFigures;
     private int _blackFigures;
+    private GameObject _activeFigure;
 
     // Активная фигура для перемещения
-    public GameObject ActiveFigure { get; set; }
+    public GameObject ActiveFigure
+    {
+        get
+        {
+            return _activeFigure;
+        }
+        set
+        {            
+            _activeFigure = value;
+        }
+    }
     //Статус контроллера
     public ManagerStatus status { get; private set; }
 
@@ -67,7 +79,10 @@ public class GameController : MonoBehaviour, IGameManager {
         {
             Managers.GameManager.DestroyFigures[dir] = fil;
         }
-        Managers.GameManager.DestroyFigures.Add(dir, fil);
+        else
+        {
+            Managers.GameManager.DestroyFigures[dir] = fil;
+        }
     }
 
     // Запуск контроллера, начальные настройки
@@ -79,7 +94,7 @@ public class GameController : MonoBehaviour, IGameManager {
         HaveKill = false;
         WhiteFigures = 0;
         BlackFigures = 0;
-        changeActivePlayer = true;
+        changeActivePlayer = true;  
         StartCoroutine(FindFigures());
         status = ManagerStatus.Started;
     }
@@ -100,7 +115,7 @@ public class GameController : MonoBehaviour, IGameManager {
 
         yield return null;
 
-        ChangeFigureColliders();
+        ChangeFigureColliders(changeActivePlayer);
     }
 
     // Функция возварщает количество объектов с определенным ТЭГОМ
@@ -116,19 +131,23 @@ public class GameController : MonoBehaviour, IGameManager {
         if (changeActivePlayer)
         {
             changeActivePlayer = false;
-            ChangeFigureColliders();
+            //TODO: Добавить в настройках данную функцибю Camera.main.transform.Rotate(0, 0, 180);                    
+            ChangeFigureColliders(changeActivePlayer);
+            
         }
         else
         {
             changeActivePlayer = true;
-            ChangeFigureColliders();
+            //TODO: Добавить в настройках данную функцибю Camera.main.transform.Rotate(0, 0, 180); 
+            ChangeFigureColliders(changeActivePlayer);
+            
         }
         
     }
     //вызывает события включения отключения коллайдера у фигур
-    private void ChangeFigureColliders()
+    private void ChangeFigureColliders(bool activePlayer)
     {
-        if (changeActivePlayer)
+        if (activePlayer)
         {
             EventManager.Instance.PostNotification(EVENT_TYPE.SWITCH, Param: FigureColor.White);
         }
