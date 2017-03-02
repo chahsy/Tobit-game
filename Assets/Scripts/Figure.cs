@@ -20,6 +20,7 @@ public class Figure : MonoBehaviour {
             
         }
     } // ссылка на поле под фигурой
+    public GameObject allocationFigure; // ссылка на дочерний объект, запуск анимации при выделении фигуры
     private Collider2D currentColl; // ссылка на коллайдер
     public FigureColor color;  // цвет фигуры
     public FigureColor oppossiteColor; // противположный цвет
@@ -38,6 +39,7 @@ public class Figure : MonoBehaviour {
         currentColl = gameObject.GetComponent<Collider2D>();
         currentColl.enabled = false;
         EventManager.Instance.AddListener(EVENT_TYPE.SWITCH, OnEvent);
+        EventManager.Instance.AddListener(EVENT_TYPE.DEFAULT, OnEvent);
     }
 		
 	
@@ -52,6 +54,7 @@ public class Figure : MonoBehaviour {
     public void DestroyFigure()
     {
         EventManager.Instance.RemoveListener(EVENT_TYPE.SWITCH, OnEvent);
+        EventManager.Instance.RemoveListener(EVENT_TYPE.DEFAULT, OnEvent);
         DecrementFigures(color);
         Clear();
         Destroy(gameObject);
@@ -61,19 +64,20 @@ public class Figure : MonoBehaviour {
     {       
         if (Managers.GameManager.ActiveFigure == null) 
         {
-            Managers.GameManager.ActiveFigure = gameObject;
-            Field.CheckNeghbors();            
+            Managers.GameManager.ActiveFigure = this;
+            Managers.UtilityManager.CheckNeghbors(Field);           
+                 
         }
-        else if(Managers.GameManager.ActiveFigure == gameObject)
+        else if(Managers.GameManager.ActiveFigure == this)
         {
             Managers.GameManager.Clear();
         }
         else
         {
             Managers.GameManager.Clear();
-            Managers.GameManager.ActiveFigure = gameObject;
-            Field.CheckNeghbors();
-            
+            Managers.GameManager.ActiveFigure = this;
+            Managers.UtilityManager.CheckNeghbors(Field);
+
         }
                
     }
@@ -88,6 +92,37 @@ public class Figure : MonoBehaviour {
                 SwitchCollider((FigureColor)Param);
                 break;
 
+        }
+        switch (Event_Type)
+        {
+            case EVENT_TYPE.DEFAULT:
+                AllocateFigureDisable();
+                break;
+
+        }
+    }
+
+    // Убираем анимацию веделения фигуры
+    private void AllocateFigureDisable()
+    {
+        if (Managers.GameManager.ActiveFigure == null)
+        {
+            if (allocationFigure.GetComponent<Animator>().enabled && allocationFigure.GetComponent<SpriteRenderer>().enabled)
+            {
+                allocationFigure.GetComponent<Animator>().enabled = false;
+                allocationFigure.GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
+        
+    }
+
+    // Включаем анимацю веделение фигуры
+    public void AllocateFigureEnable()
+    {
+        if (!allocationFigure.GetComponent<Animator>().enabled && !allocationFigure.GetComponent<SpriteRenderer>().enabled)
+        {
+            allocationFigure.GetComponent<Animator>().enabled = true;
+            allocationFigure.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
 

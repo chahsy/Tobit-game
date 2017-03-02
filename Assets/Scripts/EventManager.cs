@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public enum EVENT_TYPE
 {
     DEFAULT,
-    SWITCH
+    SWITCH    
 };
 
 public class EventManager : MonoBehaviour  {

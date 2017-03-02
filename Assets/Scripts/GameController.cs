@@ -6,9 +6,9 @@ using System;
 public class GameController : MonoBehaviour, IGameManager {
     
     private bool changeActivePlayer;
+    [SerializeField]
+    private Canvas EndGameCanvas;
     
-
-    //TODO: Доработать, вызов метода о прекращении игры если кто то достиг 0.
     //TODO: Добавить UI, статистика количество фиугр на поле
     public int WhiteFigures {
         get
@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour, IGameManager {
         set
         {
           _whiteFigures = value;
-          Debug.Log("Осталось белых фигур: " + _whiteFigures);
+          if(_whiteFigures == 0)
+            {
+                WinEvent(FigureColor.Black);
+            }
         }
     }
 
@@ -31,30 +34,51 @@ public class GameController : MonoBehaviour, IGameManager {
         set
         {
             _blackFigures = value;
-            Debug.Log("Осталось черных фигур: " + _blackFigures);
+            if (_blackFigures == 0)
+            {
+                WinEvent(FigureColor.White);
+            }
+        }
+    }
+
+    private void WinEvent(FigureColor figure)
+    {        
+        if(figure == FigureColor.White)
+        {
+            EndGameCanvas.gameObject.SetActive(true);
+            EndGameCanvas.transform.FindChild("WinTextWhite").gameObject.SetActive(true);
+        }
+        if (figure == FigureColor.Black)
+        {
+            EndGameCanvas.gameObject.SetActive(true);
+            EndGameCanvas.transform.FindChild("WinTextBlack").gameObject.SetActive(true);
         }
     }
 
     private int _whiteFigures;
     private int _blackFigures;
-    private GameObject _activeFigure;
+    private Figure _activeFigure;
 
     // Активная фигура для перемещения
-    public GameObject ActiveFigure
+    public Figure ActiveFigure
     {
         get
         {
             return _activeFigure;
         }
         set
-        {            
+        {                              
             _activeFigure = value;
+            if(_activeFigure != null)
+            {
+                _activeFigure.AllocateFigureEnable();
+            }
         }
     }
     //Статус контроллера
     public ManagerStatus status { get; private set; }
 
-    // Фигуры для поедения  
+    // Фигура для поедения  
     public Dictionary<DirectionEnum, Field> DestroyFigures;
     // Есть ход для "битья" фигуры
     public bool HaveKill { get; set; }
@@ -92,8 +116,6 @@ public class GameController : MonoBehaviour, IGameManager {
         DestroyFigures = new Dictionary<DirectionEnum, Field>();
         ActiveFigure = null;
         HaveKill = false;
-        WhiteFigures = 0;
-        BlackFigures = 0;
         changeActivePlayer = true;  
         StartCoroutine(FindFigures());
         status = ManagerStatus.Started;
@@ -102,43 +124,29 @@ public class GameController : MonoBehaviour, IGameManager {
     //Поиск фигур на поле, для отчета
     private IEnumerator FindFigures()
     {
-        yield return new WaitForSeconds(1);
-
-
-        WhiteFigures = FiguresNumbers("White");
-        Debug.Log("Белых фигур на поле: " + WhiteFigures);
-
-        yield return null;
-
-        BlackFigures = FiguresNumbers("Black");
-        Debug.Log("Черных фигур на поле: " + BlackFigures);
+        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("White").Length == 12);
+        WhiteFigures = GameObject.FindGameObjectsWithTag("White").Length;
+        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Black").Length == 12);
+        BlackFigures = GameObject.FindGameObjectsWithTag("Black").Length;
 
         yield return null;
 
         ChangeFigureColliders(changeActivePlayer);
     }
-
-    // Функция возварщает количество объектов с определенным ТЭГОМ
-    private int FiguresNumbers(string tag)
-    {
-        GameObject[] bufferWhiteGameObjects = GameObject.FindGameObjectsWithTag(tag);
-        return bufferWhiteGameObjects.Length;
-    }
+    
 
     //Функция смены активного игрока (белые или черные фигуры) 
     public void ChangeActivePlayer() {
 
         if (changeActivePlayer)
         {
-            changeActivePlayer = false;
-            //TODO: Добавить в настройках данную функцибю Camera.main.transform.Rotate(0, 0, 180);                    
+            changeActivePlayer = false;                           
             ChangeFigureColliders(changeActivePlayer);
             
         }
         else
         {
-            changeActivePlayer = true;
-            //TODO: Добавить в настройках данную функцибю Camera.main.transform.Rotate(0, 0, 180); 
+            changeActivePlayer = true;           
             ChangeFigureColliders(changeActivePlayer);
             
         }
