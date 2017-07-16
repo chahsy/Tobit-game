@@ -1,183 +1,171 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum FigureColor
+{
+    BLACK,
+    WHITE
+}
+
+public enum FigureType
+{
+    NORMAL,
+    SUPER
+}
 
 public class Figure : MonoBehaviour {
 
-    public Field Field
-    { 
-        get
-        {
-            return _field;
-        }
-        set
-        {
-            if (value != null && !Tobit)
-            {
-                CanToTransformTobit(value);
-            }
-            _field = value;
-            
-        }
-    } // ссылка на поле под фигурой
-    public GameObject allocationFigure; // ссылка на дочерний объект, запуск анимации при выделении фигуры
-    private Collider2D currentColl; // ссылка на коллайдер
-    public FigureColor color;  // цвет фигуры
-    public FigureColor oppossiteColor; // противположный цвет
-    [SerializeField]
-    private Field _field; // ссылка на поле которое находится под фигурой
-    [SerializeField]
-    private Sprite _whiteTobit;
-    [SerializeField]
-    private Sprite _blackTobit;
-    public bool Tobit { get; set; } // является ли фигура дамкой
+    public int x;
+    public int y;
+    public FigureColor color;
+    public FigureType type;
+    public Sprite black;
+    public Sprite white;
 
-    
-	// Use this for initialization
-	void Start () {
-        Tobit = false;
-        currentColl = gameObject.GetComponent<Collider2D>();
-        currentColl.enabled = false;
-        EventManager.Instance.AddListener(EVENT_TYPE.SWITCH, OnEvent);
-        EventManager.Instance.AddListener(EVENT_TYPE.DEFAULT, OnEvent);
-    }
-		
-	
-    // Очищаем ссылки из поля на фигуру и убираем ссылку на самое поле
-    public void Clear()
+    public void SetStartProperties(int startX, int startY, FigureColor setColor, FigureType setType = FigureType.NORMAL)
     {
-        Field.Clear();
-        Field = null;
-    }
-
-    // Уничтожаем фигуру при "битье"
-    public void DestroyFigure()
-    {
-        EventManager.Instance.RemoveListener(EVENT_TYPE.SWITCH, OnEvent);
-        EventManager.Instance.RemoveListener(EVENT_TYPE.DEFAULT, OnEvent);
-        DecrementFigures(color);
-        Clear();
-        Destroy(gameObject);
-    }
-
-    void OnMouseDown()
-    {       
-        if (Managers.GameManager.ActiveFigure == null) 
+        x = startX;
+        y = startY;
+        color = setColor;
+        type = setType;
+        if(color == FigureColor.WHITE)
         {
-            Managers.GameManager.ActiveFigure = this;
-            Managers.UtilityManager.CheckNeghbors(Field);           
-                 
-        }
-        else if(Managers.GameManager.ActiveFigure == this)
-        {
-            Managers.GameManager.Clear();
+            gameObject.GetComponent<SpriteRenderer>().sprite = white;
+            gameObject.name = "White";
         }
         else
         {
-            Managers.GameManager.Clear();
-            Managers.GameManager.ActiveFigure = this;
-            Managers.UtilityManager.CheckNeghbors(Field);
-
+            gameObject.GetComponent<SpriteRenderer>().sprite = black;
+            gameObject.name = "Black";
         }
-               
     }
 
-
-    public void OnEvent(EVENT_TYPE Event_Type, GameObject sender, object Param = null)
+    public void Move(MoveTobit move, ref Figure[,] board)
     {
-
-        switch (Event_Type)
+        board[move.y, move.x] = this;
+        board[y, x] = null;
+        x = move.x;
+        y = move.y;
+        if (move.haveKill)
         {
-            case EVENT_TYPE.SWITCH:                
-                SwitchCollider((FigureColor)Param);
-                break;
-
+            Destroy(board[move.delY, move.delX]);
+            board[move.delY, move.delX] = null;
         }
-        switch (Event_Type)
-        {
-            case EVENT_TYPE.DEFAULT:
-                AllocateFigureDisable();
-                break;
-
-        }
+        if (type == FigureType.SUPER)
+            return;
+        int rows = board.GetLength(0);
+        if (color == FigureColor.WHITE && y == rows)
+            type = FigureType.SUPER;
+        if (color == FigureColor.BLACK && y == 0)
+            type = FigureType.SUPER;
     }
 
-    // Убираем анимацию веделения фигуры
-    private void AllocateFigureDisable()
+    public Move[] GetMoves(ref Figure[,] board)
     {
-        if (Managers.GameManager.ActiveFigure == null)
-        {
-            if (allocationFigure.GetComponent<Animator>().enabled && allocationFigure.GetComponent<SpriteRenderer>().enabled)
-            {
-                allocationFigure.GetComponent<Animator>().enabled = false;
-                allocationFigure.GetComponent<SpriteRenderer>().enabled = false;
-            }
-        }
-        
-    }
-
-    // Включаем анимацю веделение фигуры
-    public void AllocateFigureEnable()
-    {
-        if (!allocationFigure.GetComponent<Animator>().enabled && !allocationFigure.GetComponent<SpriteRenderer>().enabled)
-        {
-            allocationFigure.GetComponent<Animator>().enabled = true;
-            allocationFigure.GetComponent<SpriteRenderer>().enabled = true;
-        }
-    }
-
-    // функция включает или выключает коллайдер
-    private void SwitchCollider(FigureColor param)
-    {        
-        if (color == param)
-        {
-            currentColl.enabled = true;
-        }
+        List<Move> moves = new List<Move>();
+        if (type == FigureType.SUPER)
+            moves = GetMovesSuper(ref board);
         else
-        {
-            currentColl.enabled = false;
-        }
+            moves = GetMovesNormal(ref board);
+        return moves.ToArray();
     }
 
-    //Функция обновляет количество фигур в менеджере
-    private void DecrementFigures(FigureColor color)
+    private List<Move> GetMovesNormal(ref Figure[,] board)
     {
-        if(color == FigureColor.Black)
+        List<Move> moves = new List<Move>(2);
+        int[] moveX = new int[] { -1, 1 };
+        int moveY = 1;
+        if (color == FigureColor.BLACK)
+            moveY = -1;
+        foreach (int mX in moveX)
         {
-            Managers.GameManager.BlackFigures--;
-        }
-        if(color == FigureColor.White)
-        {
-            Managers.GameManager.WhiteFigures--;
-        }
-    }
+            int nextX = x + mX;
+            int nextY = y + moveY;
+            if (!IsMoveInBounds(nextX, y, ref board))
+                continue;
 
-    //Проверяем может ли фигура стать дамкой (по правилам игры дамка называется Тобит).
-    private void CanToTransformTobit(Field value)
-    {
-        if (color == FigureColor.White)
-        {
-            string[] namesOfFields = { "34", "35", "36", "37", "38" };
-            foreach (string nameOfField in namesOfFields)
+            Figure p = board[moveY, nextX];
+            if (p != null && p.color == color)
+                continue;
+
+            MoveTobit m = new MoveTobit();
+            m.figure = this;
+            if (p == null)
             {
-                if (nameOfField == value.name)
+                m.x = nextX;
+                m.y = nextY;
+            }
+            else
+            {
+                int hopX = nextX + mX;
+                int hopY = nextY + moveY;
+                if (!IsMoveInBounds(hopX, hopY, ref board))
+                    continue;
+                if (board[hopY, hopX] != null)
+                    continue;
+                m.y = hopX;
+                m.x = hopY;
+                m.haveKill = true;
+                m.delX = nextX;
+                m.delY = nextY;
+            }
+            moves.Add(m);
+        }
+        return moves;
+    }
+
+    private List<Move> GetMovesSuper(ref Figure[,] board)
+    {
+        List<Move> moves = new List<Move>();
+        int[] moveX = new int[] { -1, 1 };
+        int[] moveY = new int[] { -1, 1 };
+        foreach (int mY in moveY)
+        {
+            foreach (int mX in moveX)
+            {
+                int nextX = x + mX;
+                int nextY = y + mY;
+                while (IsMoveInBounds(nextX, nextY, ref board))
                 {
-                    Tobit = true;
-                    gameObject.GetComponent<SpriteRenderer>().sprite = _whiteTobit;
+                    Figure p = board[nextY, nextX];
+                    if (p != null && p.color == color)
+                        break;
+                    MoveTobit m = new MoveTobit();
+                    m.figure = this;
+                    if (p == null)
+                    {
+                        m.x = nextX;
+                        m.y = nextY;
+                    }
+                    else
+                    {
+                        int hopX = nextX + mX;
+                        int hopY = nextY + mY;
+                        if (!IsMoveInBounds(hopX, hopY, ref board))
+                            break;
+                        m.haveKill = true;
+                        m.x = hopX;
+                        m.y = hopY;
+                        m.delX = nextX;
+                        m.delY = nextY;
+                    }
+                    moves.Add(m);
+                    nextX += mX;
+                    nextY += mY;
                 }
             }
         }
-        if (color == FigureColor.Black)
-        {
-            string[] namesOfFields = { "1", "2", "3", "4", "5" };
-            foreach (string nameOfField in namesOfFields)
-            {
-                if (nameOfField == value.name)
-                {
-                    Tobit = true;
-                    gameObject.GetComponent<SpriteRenderer>().sprite = _blackTobit;
-                }
-            }
-        }
+        return moves;
     }
+
+    private bool IsMoveInBounds(int x, int y, ref Figure[,] board)
+    {
+        int rows = board.GetLength(0);
+        int cols = board.GetLength(1);
+        if (x < 0 || x >= cols || y < 0 || y >= rows)
+            return false;
+        return true;
+    }
+
 }

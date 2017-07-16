@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System;
 
 public enum EVENT_TYPE
 {
     DEFAULT,
-    SWITCH    
+    SWITCH,
+    RESTART  
 };
 
 public class EventManager : MonoBehaviour  {
@@ -22,16 +25,24 @@ public class EventManager : MonoBehaviour  {
 
     void Awake()
     {
+        SceneManager.sceneLoaded += this.OnLoadCallback;
         // реализация синглтона
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            
+
         }
         else
         {
             DestroyImmediate(this);
         }
+
+    }
+
+    private void OnLoadCallback(Scene arg0, LoadSceneMode arg1)
+    {        
+        RemoveRedundancies();
     }
 
     public void AddListener(EVENT_TYPE Event_type, OnEvent Listener)
@@ -98,8 +109,5 @@ public class EventManager : MonoBehaviour  {
         Listeners = TmpListeners;
     }
 
-    void OnLevelWasLoaded()
-    {
-        RemoveRedundancies();
-    }
+   
 }

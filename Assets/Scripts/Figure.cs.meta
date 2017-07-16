@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 2cd556a241abfb545b248320b29433de
-timeCreated: 1487491142
+guid: 1fae9b584e0821c4da6d22361a3b687f
+timeCreated: 1499777644
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - _field: {instanceID: 0}
-  - _whiteTobit: {fileID: 21300000, guid: fc53300127be64b478923adf4a951d72, type: 3}
-  - _BlackTobit: {fileID: 21300000, guid: 2fdba57b378c2ce4f97c9dfad183be51, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

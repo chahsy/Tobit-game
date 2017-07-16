@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 40c02084e98092b4faf412875bbe2d5e
+timeCreated: 1488213268
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Runic Alt
+  fontNames:
+  - Runic Alt
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

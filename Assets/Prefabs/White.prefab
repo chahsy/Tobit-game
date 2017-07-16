@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212000011279841896}
   - component: {fileID: 58000013857516496}
   - component: {fileID: 50000012410795294}
-  - component: {fileID: 114000013561479744}
   m_Layer: 0
   m_Name: White
   m_TagString: White
@@ -38,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 1000012361536086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.07, y: -2.71, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,25 +73,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.65
---- !u!114 &114000013561479744
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012361536086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd556a241abfb545b248320b29433de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 2
-  oppossiteColor: 1
-  _field: {fileID: 0}
-  _whiteTobit: {fileID: 21300000, guid: fc53300127be64b478923adf4a951d72, type: 3}
-  _blackTobit: {fileID: 21300000, guid: 2fdba57b378c2ce4f97c9dfad183be51, type: 3}
 --- !u!212 &212000011279841896
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -123,8 +107,15 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ed0341efb5a28f44ead3bb63763098df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aef9ab514960fb24fb4be8700a19b122, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
