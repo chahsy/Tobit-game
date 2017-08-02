@@ -17,6 +17,6 @@ public class Field : MonoBehaviour
 
     private void SetFieldOnBoard()
     {
-        BoardTobit.fieldsOnBoard[row, column] = this;
+        BoardTobit.Instance.fieldsOnBoard[row, column] = this;
     }
 }

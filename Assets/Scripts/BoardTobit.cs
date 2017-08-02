@@ -6,27 +6,41 @@ using UnityEngine;
 
 public class BoardTobit : Board {
 
+    public static BoardTobit Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
     public int rowsOfBoard = 6;
     public int columnsOfBoard = 7;
     public int numFigures = 12;
     public GameObject prefab;
-    public static Field[,] fieldsOnBoard;
+    public Field[,] fieldsOnBoard;
 
-    protected Figure[,] board;
+    public Figure[,] board;
+
+    private static BoardTobit _instance;
     
 
     void Awake()
     {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            DestroyImmediate(this);
+        }
         player = 0;
         board = new Figure[rowsOfBoard, columnsOfBoard];
         fieldsOnBoard = new Field[rowsOfBoard, columnsOfBoard];
     }
 
     void Start()
-    {
-        // TODO
-        // initialization and board set up
-        // your implementation may vary
+    {        
         Figure figure = prefab.GetComponent<Figure>();
         if (figure == null)
         {
