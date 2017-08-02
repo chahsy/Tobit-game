@@ -40,15 +40,16 @@ public class Figure : MonoBehaviour {
         }
     }
 
-    public void Move(MoveTobit move, ref Figure[,] board)
+    public void Move(MoveTobit move, Vector3 pos, ref Figure[,] board)
     {
         board[move.y, move.x] = this;
+        transform.position = new Vector3(pos.x, pos.y, pos.z - 1);
         board[y, x] = null;
         x = move.x;
         y = move.y;
         if (move.haveKill)
         {
-            Destroy(board[move.delY, move.delX]);
+            Destroy(board[move.delY, move.delX].gameObject);
             board[move.delY, move.delX] = null;
         }
         if (type == FigureType.SUPER)

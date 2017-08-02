@@ -24,9 +24,15 @@ public class PlayerClick : MonoBehaviour {
                 foreach (MoveTobit m in moveFrom)
                 {
                     if (m.haveKill)
+                    {
                         Debug.Log(BoardTobit.Instance.fieldsOnBoard[m.y, m.x].name + " подсвечен красным!");
+                        BoardTobit.Instance.fieldsOnBoard[m.y, m.x].MoveOn = m;
+                    }
                     else
+                    {
                         Debug.Log(BoardTobit.Instance.fieldsOnBoard[m.y, m.x].name + " подсвечен желтым!");
+                        BoardTobit.Instance.fieldsOnBoard[m.y, m.x].MoveOn = m;
+                    }
 
                 }
             }
