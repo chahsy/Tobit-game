@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Move {	
-		
-	
+public abstract class Move {
+
+    abstract public void InnerData();
 }

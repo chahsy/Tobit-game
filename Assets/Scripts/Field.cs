@@ -15,37 +15,60 @@ public class Field : MonoBehaviour
         {
             _moveOn = value;
             if (_moveOn != null)
+            {
                 fieldCollider.enabled = true;
+                MoveTobit move = (MoveTobit)_moveOn;
+                if (move.haveKill)
+                {
+                    fieldSprite.sprite = killMove;                    
+                }
+                else
+                {
+                    fieldSprite.sprite = normalMove;
+                }
+            }
             else
+            {
                 fieldCollider.enabled = false;
+                fieldSprite.sprite = null;
+            }
         }
     }
 
     public int row;
     public int column;
 
+    [SerializeField]
+    private Sprite normalMove;
+    [SerializeField]
+    private Sprite killMove;
     private Collider2D fieldCollider;
     private Move _moveOn;
+    private SpriteRenderer fieldSprite;
 
     void Start()
     {
         fieldCollider = gameObject.GetComponent<Collider2D>();
+        fieldSprite = gameObject.GetComponent<SpriteRenderer>();
+        EventManager.Instance.AddListener(EVENT_TYPE.DEFAULT, OnEvent);
         MoveOn = null;
         SetFieldOnBoard();
     }
-
-    private void OnMouseDown()
+        
+    private void SetFieldOnBoard()
     {
-        if(MoveOn != null)
+        GameController.Instance.deskView[row, column] = this;
+    }
+    
+    public void OnEvent(EVENT_TYPE Event_type, GameObject Sender, object Param = null)
+    {
+        switch (Event_type)
         {
-            MoveTobit curretMove = (MoveTobit)MoveOn;
-            curretMove.figure.Move(curretMove, transform.position ,ref BoardTobit.Instance.board);
+            case EVENT_TYPE.DEFAULT:
+                MoveOn = null;
+                break;
         }
     }
 
-
-    private void SetFieldOnBoard()
-    {
-        BoardTobit.Instance.fieldsOnBoard[row, column] = this;
-    }
+   
 }

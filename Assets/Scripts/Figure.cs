@@ -1,64 +1,69 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public enum FigureColor
-{
-    BLACK,
-    WHITE
-}
 
-public enum FigureType
-{
-    NORMAL,
-    SUPER
-}
+public class Figure {
 
-public class Figure : MonoBehaviour {
+    public delegate void Moved(MoveTobit move);
+    public delegate void Destroed();
+    public delegate void BecameSuper();
 
     public int x;
     public int y;
     public FigureColor color;
-    public FigureType type;
-    public Sprite black;
-    public Sprite white;
+    public FigureType type;    
+    public event Moved MovedEvent;
+    public event Destroed DestroyEvent;
+    public event BecameSuper BecameSuperEvent;
 
-    public void SetStartProperties(int startX, int startY, FigureColor setColor, FigureType setType = FigureType.NORMAL)
+    
+    public Figure()
     {
-        x = startX;
-        y = startY;
-        color = setColor;
-        type = setType;
-        if(color == FigureColor.WHITE)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = white;
-            gameObject.name = "White";
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = black;
-            gameObject.name = "Black";
-        }
+        x = 0;
+        y = 0;
+        color = FigureColor.BLACK;
+        type = FigureType.NORMAL;
     }
 
-    public void Move(MoveTobit move, Vector3 pos, ref Figure[,] board)
+    public Figure(int x, int y, FigureColor color, FigureType type = FigureType.NORMAL)
     {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.type = type;
+    }
+        
+
+    public void Move(MoveTobit move, ref Figure[,] board)
+    {
+        MovedEvent(move);
         board[move.y, move.x] = this;
-        transform.position = new Vector3(pos.x, pos.y, pos.z - 1);
         board[y, x] = null;
         x = move.x;
         y = move.y;
         if (move.haveKill)
         {
-            Destroy(board[move.delY, move.delX].gameObject);
+            if (board[move.delY, move.delX] != null)
+            {
+                board[move.delY, move.delX].DestroyEvent();
+            }
             board[move.delY, move.delX] = null;
         }
         if (type == FigureType.SUPER)
             return;
-        int rows = board.GetLength(0);
+        int rows = board.GetLength(0)-1;
         if (color == FigureColor.WHITE && y == rows)
+        {
             type = FigureType.SUPER;
+            BecameSuperEvent();
+        }
         if (color == FigureColor.BLACK && y == 0)
+        {
             type = FigureType.SUPER;
+            BecameSuperEvent();
+        }
+        
     }
 
     public Move[] GetMoves(ref Figure[,] board)
@@ -71,16 +76,19 @@ public class Figure : MonoBehaviour {
         return moves.ToArray();
     }
 
+    //TODO: возвращаем список ходов при поедании
     private List<Move> GetMovesNormal(ref Figure[,] board)
     {
         List<Move> moves = new List<Move>();
+        bool canKill = false;
         int[] moveX = new int[] { -1, 1 };
-        int[] moveY = new int[] { -1, 1 };
+        int[] moveY = new int[] { 1, -1 };
         if (color == FigureColor.BLACK)
-            moveY = new int[] { 1, -1 };
+            moveY = new int[] { -1, 1 };
+        //Проверяем возможность ходить вправо и влево
         foreach (int mX in moveX)
         {
-            if (y == 0 || y == board.GetLength(0))
+            if (y == 0 || y == board.GetLength(0)-1)
                 continue;
             int nextX = x + mX;
             if (!IsMoveInBounds(nextX, y, ref board))
@@ -89,105 +97,103 @@ public class Figure : MonoBehaviour {
             Figure f = board[y, nextX];
             if (f != null && f.color == color)
                 continue;
-
             MoveTobit m = new MoveTobit();
             m.figure = this;
             if (f == null)
             {
-                m.x = nextX;
-                m.y = y;
+                if (!canKill)
+                {
+                    m.x = nextX;
+                    m.y = y;
+                }
+                else
+                    continue;
             }
             else
-            {
+            {                
                 int hopX = nextX + mX;
                 if (!IsMoveInBounds(hopX, y, ref board))
                     continue;
                 if (board[y, hopX] != null)
                     continue;
+                if (!canKill)
+                {
+                    moves.Clear();
+                    canKill = true;
+                }
                 m.x = hopX;
                 m.y = y;
-                m.haveKill = true;
+                m.haveKill = true;                
                 m.delX = nextX;
                 m.delY = y;
             }
             moves.Add(m);
         }
 
-        bool first = true;
-
+        
+        //Проверяем возможность ходить прямо или бить назад
         foreach (int mY in moveY)
         {
 
-            first = false;
-
-            if (x == 0 || x == board.GetLength(1))
+            if (x == 0 || x == board.GetLength(1)-1)
                 continue;
-            Debug.Log("Y check! 1");
             int nextY = y + mY;
             if (!IsMoveInBounds(x, nextY, ref board))
                 continue;
-            Debug.Log("Y check! 2");
             Figure f = board[nextY, x];
             if (f != null && f.color == color)
                 continue;
-            Debug.Log("Y check! 3");
             MoveTobit m = new MoveTobit();
             m.figure = this;
-            if (!first)
+            if (f == null)
             {
-                Debug.Log("Y check!");
-                if (f == null)
-                {                    
+                if (!canKill && mY == moveY[0])
+                {
                     m.x = x;
                     m.y = nextY;
                 }
                 else
-                {
-                    int hopY = nextY + mY;
-                    if (!IsMoveInBounds(x, hopY, ref board))
-                        continue;
-                    if (board[hopY, x] != null)
-                        continue;
-                    m.x = x;
-                    m.y = hopY;
-                    m.haveKill = true;
-                    m.delX = x;
-                    m.delY = nextY;
-                }                
+                    continue;
             }
             else
             {
-                if (f == null)
-                    continue;
                 int hopY = nextY + mY;
                 if (!IsMoveInBounds(x, hopY, ref board))
                     continue;
                 if (board[hopY, x] != null)
                     continue;
+                if (!canKill)
+                {
+                    moves.Clear();
+                    canKill = true;
+                }
                 m.x = x;
                 m.y = hopY;
                 m.haveKill = true;
                 m.delX = x;
                 m.delY = nextY;
-            }
+            }                
+                   
             moves.Add(m);
         }
         return moves;
     }
-
+    
     private List<Move> GetMovesSuper(ref Figure[,] board)
     {
         List<Move> moves = new List<Move>();
+        bool canKill = false;
+        int[] moveX = new int[] { -1, 1 };
+        int[] moveY = new int[] { -1, 1 };
 
-        var moveXY = new[] { new { moveX = 1, moveY = 0 },
-            new { moveX = -1, moveY = 0 },
-            new { moveX = 0, moveY = 1 },
-            new { moveX = 0, moveY = -1}
-        };
-        foreach (var mXY in moveXY)
+        foreach (var mX in moveX)
         {
-            int nextX = x + mXY.moveX;
-            int nextY = x + mXY.moveY;
+            if (y == 0 || y == board.GetLength(0) - 1)
+                continue;
+            int nextX = x + mX;
+            int nextY = y;
+            MoveTobit killField = null;
+
 
             while (IsMoveInBounds(nextX, nextY, ref board))
             {
@@ -198,37 +204,144 @@ public class Figure : MonoBehaviour {
                 m.figure = this;
                 if (p == null)
                 {
-                    m.x = nextX;
-                    m.y = nextY;
+                    if (!canKill)
+                    {
+                        m.x = nextX;
+                        m.y = nextY;
+                        
+                    }
+                    else
+                    {
+                        if (killField != null)
+                        {
+                            m.x = nextX;
+                            m.y = nextY;
+                            m.haveKill = true;
+                            m.delX = killField.delX;
+                            m.delY = killField.delY;
+                        }
+                        else
+                        {
+                            nextX += mX;
+                            continue;
+                        }
+                    }
                 }
                 else
                 {
-                    int hopX = nextX + mXY.moveX;
-                    int hopY = nextY + mXY.moveY;
+                    int hopX = nextX + mX;
+                    int hopY = nextY;
                     if (!IsMoveInBounds(hopX, hopY, ref board))
                         break;
+                    if (board[hopY, hopX] != null)
+                        break;
+                    if (!canKill)
+                    {
+                        moves.Clear();
+                        canKill = true;
+                    }
                     m.haveKill = true;
                     m.x = hopX;
                     m.y = hopY;
                     m.delX = nextX;
                     m.delY = nextY;
+                    killField = m;
+                    nextX = hopX;
                 }
                 moves.Add(m);
-                nextX += mXY.moveX;
-                nextY += mXY.moveY;
+                nextX += mX;
             }
             
+        }
+        foreach (var mY in moveY)
+        {
+            if (x == 0 || x == board.GetLength(1) - 1)
+                continue;
+            int nextX = x;
+            int nextY = y + mY;
+            MoveTobit killField = null;
+
+
+            while (IsMoveInBounds(nextX, nextY, ref board))
+            {
+                Figure p = board[nextY, nextX];
+                if (p != null && p.color == color)
+                    break;
+                MoveTobit m = new MoveTobit();
+                m.figure = this;
+                if (p == null)
+                {
+                    if (!canKill)
+                    {
+                        m.x = nextX;
+                        m.y = nextY;
+                       
+                    }
+                    else
+                    {
+                        if (killField != null)
+                        {
+                            m.x = nextX;
+                            m.y = nextY;
+                            m.haveKill = true;
+                            m.delX = killField.delX;
+                            m.delY = killField.delY;
+                        }
+                        else
+                        {
+                            nextY += mY;
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    int hopX = nextX;
+                    int hopY = nextY + mY;
+                    if (!IsMoveInBounds(hopX, hopY, ref board))
+                        break;
+                    if (board[hopY, hopX] != null)
+                        break;
+                    if (!canKill)
+                    {
+                        moves.Clear();
+                        canKill = true;
+                    }
+                    m.haveKill = true;
+                    m.x = hopX;
+                    m.y = hopY;
+                    m.delX = nextX;
+                    m.delY = nextY;
+                    killField = m;
+                    nextY = hopY;
+
+                }
+                moves.Add(m);
+                nextY += mY;
+            }
+
         }
         return moves;
     }
 
     private bool IsMoveInBounds(int x, int y, ref Figure[,] board)
     {
-        int rows = board.GetLength(0);
-        int cols = board.GetLength(1);
-        if (x < 0 || x >= cols || y < 0 || y >= rows)
+        if (x < 0 || x > board.GetLength(1)-1 || y < 0 || y > board.GetLength(0)-1)
             return false;
         return true;
     }
 
+}
+
+
+public enum FigureColor
+{
+    WHITE,
+    BLACK    
+}
+
+public enum FigureType
+{
+    NORMAL,
+    SUPER
 }

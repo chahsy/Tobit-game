@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour {
+public class Board {
 
-    protected int player;
+    protected int player = 1;
 
     public Board()
     {
-        player = 1;
+        player = 1-player;
     }
 
     public virtual Move[] GetMoves()
@@ -26,10 +26,6 @@ public class Board : MonoBehaviour {
         return true;
     }
 
-    public virtual int GetCurrentPlayer()
-    {
-        return player;
-    }
 
     public virtual float Evaluate(int player)
     {

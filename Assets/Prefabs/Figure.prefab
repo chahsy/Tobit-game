@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 212869324432500448}
   - component: {fileID: 58772278000193746}
   - component: {fileID: 50009493711495344}
-  - component: {fileID: 114348462565391068}
-  - component: {fileID: 114573109730255516}
+  - component: {fileID: 114497779007623966}
+  - component: {fileID: 114044588646882116}
+  - component: {fileID: 114099393072580508}
   m_Layer: 0
   m_Name: Figure
   m_TagString: Figure
@@ -79,24 +80,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.65
---- !u!114 &114348462565391068
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1204800728524404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fae9b584e0821c4da6d22361a3b687f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  color: 0
-  type: 0
-  black: {fileID: 21300000, guid: d6b5be1ab373d1c4dbf8b1268b27ffc2, type: 3}
-  white: {fileID: 21300000, guid: aef9ab514960fb24fb4be8700a19b122, type: 3}
---- !u!114 &114573109730255516
+--- !u!114 &114044588646882116
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -107,6 +91,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcca308fdbdf5f46a8e6abf044ba819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114099393072580508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204800728524404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbc0e0a2b486504082d5109029e19ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114497779007623966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204800728524404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c663e166cddc6f3429e2107b46b95940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  black: {fileID: 21300000, guid: d6b5be1ab373d1c4dbf8b1268b27ffc2, type: 3}
+  white: {fileID: 21300000, guid: aef9ab514960fb24fb4be8700a19b122, type: 3}
+  superBlack: {fileID: 21300000, guid: e58347f0bc3ea34439afeeb3b404a4c2, type: 3}
+  superWhite: {fileID: 21300000, guid: 25b9c22c17567c4449f850f9bfe29849, type: 3}
+  coll2D: {fileID: 0}
 --- !u!212 &212869324432500448
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -116,6 +127,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -131,6 +143,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -144,7 +157,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.02, y: 1.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

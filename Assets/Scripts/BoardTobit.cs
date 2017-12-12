@@ -6,124 +6,107 @@ using UnityEngine;
 
 public class BoardTobit : Board {
 
-    public static BoardTobit Instance
+    public FigureColor CurrentPlayer
     {
         get
         {
-            return _instance;
+            if(player == 1)
+            {
+                return FigureColor.BLACK;
+            }
+            else
+            {
+                return FigureColor.WHITE;
+            }
+        }
+        set
+        {
+            if(value == FigureColor.WHITE)
+            {
+                player = 0;
+            }
+            else
+            {
+                player = 1;
+            }
         }
     }
     public int rowsOfBoard = 6;
     public int columnsOfBoard = 7;
-    public int numFigures = 12;
-    public GameObject prefab;
-    public Field[,] fieldsOnBoard;
-
     public Figure[,] board;
+    public int numFigures = 12;
 
-    private static BoardTobit _instance;
-    
-
-    void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            DestroyImmediate(this);
-        }
-        player = 0;
-        board = new Figure[rowsOfBoard, columnsOfBoard];
-        fieldsOnBoard = new Field[rowsOfBoard, columnsOfBoard];
-    }
-
-    void Start()
-    {        
-        Figure figure = prefab.GetComponent<Figure>();
-        if (figure == null)
-        {
-            Debug.LogError("No figure component detected");
-            return;
-        }
-        int r;
-        int c;
-        int figuresLeft = numFigures;
-        for (r = 0; r < rowsOfBoard; r++)
-        {
-            if (figuresLeft == 0)
-                break;
-            int init = 0;
-            int max = columnsOfBoard;
-            if (r == 0)
-            {
-                init = 1;
-                max = columnsOfBoard - 1;
-            }
-            for (c = init; c < max; c++)
-            {
-                if (figuresLeft == 0)
-                    break;
-                PlaceFigures(c, r, FigureColor.WHITE);
-                figuresLeft--;
-            }
-        }
-
-        figuresLeft = numFigures;
-        for (r = rowsOfBoard - 1; r >= 0; r--)
-        {
-            if (figuresLeft == 0)
-                break;
-            int init = 0;
-            int max = columnsOfBoard;
-            if (r == rowsOfBoard-1)
-            {
-                init = 1;
-                max = columnsOfBoard - 1;
-            }
-            for (c = init; c < max; c++)
-            {
-                if (figuresLeft == 0)
-                    break;
-                PlaceFigures(c, r, FigureColor.BLACK);
-                figuresLeft--;
-            }
-        }
-    }
-
-    private void PlaceFigures(int x, int y, FigureColor color)
+    public BoardTobit() : base()
     {
         
-        Vector3 pos = fieldsOnBoard[y, x].transform.position;
-        GameObject go = Instantiate(prefab);
-        go.transform.position = new Vector3(pos.x,pos.y,pos.z-1);
-        Figure p = go.GetComponent<Figure>();
-        p.SetStartProperties(x, y, color);
-        board[y, x] = p;
+        board = new Figure[rowsOfBoard, columnsOfBoard];
+
+    }
+
+    public BoardTobit(BoardTobit boardMover)
+    {
+        player = 1 - boardMover.player;
+        board = new Figure[rowsOfBoard, columnsOfBoard];
+        Array.Copy(boardMover.board, 0, board, 0, boardMover.board.Length);
+    }
+    public override Board MakeMove(Move m)
+    {
+        BoardTobit movedBoard = new BoardTobit(this);
+        MoveTobit currentMove = m as MoveTobit;
+        Figure fig = new Figure(currentMove.figure.x,currentMove.figure.y,currentMove.figure.color,currentMove.figure.type);
+        movedBoard.board[currentMove.y, currentMove.x] = fig;
+        movedBoard.board[fig.y, fig.x] = null;
+
+        fig.x = currentMove.x;
+        fig.y = currentMove.y;
+        if (currentMove.haveKill)
+        {
+            movedBoard.board[currentMove.delY, currentMove.delX] = null;
+        }
+        if (currentMove.figure.type == FigureType.SUPER)
+            return movedBoard;
+        int rows = movedBoard.board.GetLength(0) - 1;
+        if (currentMove.figure.color == FigureColor.WHITE && currentMove.figure.y == rows)
+        {
+            currentMove.figure.type = FigureType.SUPER;
+        }
+        if (currentMove.figure.color == FigureColor.BLACK && currentMove.figure.y == 0)
+        {
+            currentMove.figure.type = FigureType.SUPER;
+        }
+        return movedBoard;
+    }
+    public override bool IsGameOver()
+    {        
+        int rows = board.GetLength(0);
+        int cols = board.GetLength(1);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                Figure f = board[i, j];
+                if(f != null && f.color == CurrentPlayer)
+                {
+                    return false;
+                }
+               
+            }
+        }
+        return true;
     }
 
     public override float Evaluate()
     {
-        FigureColor color = FigureColor.WHITE;
-        if (player == 1)
-            color = FigureColor.BLACK;
+        FigureColor color = CurrentPlayer;       
         return Evaluate(color);
     }
 
-    public override float Evaluate(int player)
-    {
-        FigureColor color = FigureColor.WHITE;
-        if (player == 1)
-            color = FigureColor.BLACK;
-        return Evaluate(color);
-    }
-
-    private float Evaluate(FigureColor color)
+    //TODO: Необходимо сделать более продуманный подсчет ходов
+    private float Evaluate(FigureColor color) 
     {
         float eval = 1f;
         float pointSimple = 1f;
-        float pointSuccess = 5f;
+        float pointSuccess = 10f;
         int rows = board.GetLength(0);
         int cols = board.GetLength(1);
         int i;
@@ -132,42 +115,66 @@ public class BoardTobit : Board {
         {
             for (j = 0; j < cols; j++)
             {
-                Figure p = board[i, j];
-                if (p == null)
+                Figure f = board[i, j];
+                if (f == null)
                     continue;
-                if (p.color != color)
+                if (f.color != color)
                     continue;
-                Move[] moves = p.GetMoves(ref board);
+                Move[] moves = f.GetMoves(ref board);
                 foreach (Move mv in moves)
                 {
                     MoveTobit m = (MoveTobit)mv;
                     if (m.haveKill)
-                        eval += pointSuccess;
+                    {
+                        eval += pointSuccess;                        
+                    }
                     else
+                    {
                         eval += pointSimple;
+                    }
+                    if (IsImrpovedMove(color, m))
+                        eval += pointSuccess;
                 }
             }
         }
         return eval;
     }
 
+    private bool IsImrpovedMove(FigureColor color, MoveTobit m)
+    {
+        int rows = board.GetLength(0) - 1;
+        if (color == FigureColor.WHITE && m.y == rows)
+        {
+            return true;
+        }
+        if (color == FigureColor.BLACK && m.y == 0)
+        {
+            return true;
+
+        }
+        return false;
+    }    
+
     public override Move[] GetMoves()
     {
         List<Move> moves = new List<Move>();
         int rows = board.GetLength(0);
         int cols = board.GetLength(1);
-        int i;
-        int j;
-        for (i = 0; i < rows; i++)
+        FigureColor color = CurrentPlayer;
+        for (int i = 0; i < rows; i++)
         {
-            for (j = 0; i < cols; j++)
+            for (int j = 0; j < cols; j++)
             {
-                Figure p = board[i, j];
-                if (p == null)
+                Figure f = board[i, j];
+                if (f == null || f.color != color)
                     continue;
-                moves.AddRange(p.GetMoves(ref board));
+                moves.AddRange(f.GetMoves(ref board));
             }
         }
+        if(moves.Exists(m => (m as MoveTobit).haveKill))
+            moves = moves.FindAll(m => (m as MoveTobit).haveKill);
         return moves.ToArray();
     }
+    
+        
 }

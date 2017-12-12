@@ -3,39 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerClick : MonoBehaviour {
-
-    private static Figure currentFigureForMove = null;
-    private Move onFieldMove = null; // реализовать через свойство, если не нулл то включить коллайдер
-
     
+    
+    private static ViewFigure currentFigure = null;
 
 
     void OnMouseDown()
-    {
-        if(gameObject.GetComponent<Figure>() != null)
-        {    
-            Figure curFigure = gameObject.GetComponent<Figure>();
-            Move[] moveFrom = curFigure.GetMoves(ref BoardTobit.Instance.board);
-            Debug.Log(moveFrom.Length);
-            if(moveFrom.Length > 0)
-            {                
-                currentFigureForMove = curFigure;
-                Debug.Log("Click");               
-                foreach (MoveTobit m in moveFrom)
-                {
-                    if (m.haveKill)
-                    {
-                        Debug.Log(BoardTobit.Instance.fieldsOnBoard[m.y, m.x].name + " подсвечен красным!");
-                        BoardTobit.Instance.fieldsOnBoard[m.y, m.x].MoveOn = m;
-                    }
-                    else
-                    {
-                        Debug.Log(BoardTobit.Instance.fieldsOnBoard[m.y, m.x].name + " подсвечен желтым!");
-                        BoardTobit.Instance.fieldsOnBoard[m.y, m.x].MoveOn = m;
-                    }
-
+    {        
+        if(gameObject.tag == "Field")
+        {
+            Field fieldToMove = gameObject.GetComponent<Field>();
+            MoveTobit currentMove = (MoveTobit)fieldToMove.MoveOn;
+            currentMove.figure.Move(currentMove, ref GameController.Instance.CurrentBoard.board);
+            EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
+            GameController.Instance.ChangePlayer();
+        }
+        if(gameObject.tag == "Figure")
+        {
+            ViewFigure figure = gameObject.GetComponent<ViewFigure>();
+            if (figure.figure.color == GameController.Instance.playerColor)
+            {
+                if(currentFigure != figure)
+                {                    
+                    EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);                    
                 }
+                currentFigure = figure;
+                Move[] moves = figure.figure.GetMoves(ref GameController.Instance.CurrentBoard.board);
+                GameController.Instance.HighLightMoves(moves);
             }
         }
     }
+
+
 }

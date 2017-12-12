@@ -25,13 +25,11 @@ public class EventManager : MonoBehaviour  {
 
     void Awake()
     {
-        SceneManager.sceneLoaded += this.OnLoadCallback;
+        SceneManager.sceneLoaded += OnLoadCallback;
         // реализация синглтона
         if (instance == null)
         {
             instance = this;
-            
-
         }
         else
         {
@@ -39,7 +37,6 @@ public class EventManager : MonoBehaviour  {
         }
 
     }
-
     private void OnLoadCallback(Scene arg0, LoadSceneMode arg1)
     {        
         RemoveRedundancies();
