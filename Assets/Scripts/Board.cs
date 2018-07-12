@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Board {
 
-    protected int player = 1;
+    protected FigureColor player;
 
     public Board()
     {
-        player = 1-player;
+        player = FigureColor.WHITE;
     }
 
     public virtual Move[] GetMoves()
@@ -26,13 +26,13 @@ public class Board {
         return true;
     }
 
-
-    public virtual float Evaluate(int player)
-    {
-        return Mathf.NegativeInfinity;
-    }
     public virtual float Evaluate()
     {
         return Mathf.NegativeInfinity;
     }
+    public virtual FigureColor GetCurrentPlayer()
+    {
+        return player;
+    }
+
 }

@@ -21,7 +21,7 @@ public class ViewFigure : MonoBehaviour {
     {        
         coll2D.enabled = true;
         this.figure = figure;
-        if (figure.color == FigureColor.WHITE)
+        if (figure.Color == FigureColor.WHITE)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = white;
             gameObject.name = "White";
@@ -39,7 +39,7 @@ public class ViewFigure : MonoBehaviour {
 
     public void MoveFigure(MoveTobit move)
     {
-        Vector3 pos = GameController.Instance.deskView[move.y, move.x].transform.position;
+        Vector3 pos = GameController.Instance.deskView[move.row, move.col].transform.position;
         gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z - 1);
 
     }
@@ -50,7 +50,7 @@ public class ViewFigure : MonoBehaviour {
 
     private void ChangeSprite()
     {
-        if (figure.color == FigureColor.WHITE)
+        if (figure.Color == FigureColor.WHITE)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = superWhite;
         }

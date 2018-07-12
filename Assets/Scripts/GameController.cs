@@ -107,12 +107,11 @@ public class GameController : MonoBehaviour {
     {
         foreach(MoveTobit m in playerMoves)
         {
-            Field illuminatedField = deskView[m.y, m.x];
-            illuminatedField.MoveOn = m;
+            Field illuminatedField = deskView[m.row, m.col];
+            illuminatedField.MoveOn = m;            
         }
     }
-
-
+    
     private void PlaceFigures(int x, int y, FigureColor color)
     {
 
@@ -128,10 +127,11 @@ public class GameController : MonoBehaviour {
     private void MoveAI()
     {
         Move m = null;
-        BoardTobitAI.Negamax(CurrentBoard, 4, 0, ref m);//5 это мак глубина
+        float t =  BoardTobitAI.MiniMaxAlgorithm(CurrentBoard, CurrentBoard.GetCurrentPlayer(), 5, 0, ref m);//5 это макc глубина
         MoveTobit bestMove = (MoveTobit)m;
+        Debug.Log("best score " + t);        
         Figure figure = bestMove.figure;
-        figure.Move((MoveTobit)m, ref CurrentBoard.board);
+        figure.MoveAI(bestMove, ref CurrentBoard.board);
         ChangePlayer();
     }
     

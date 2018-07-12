@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class Move {
 
-    abstract public void InnerData();
+  
 }

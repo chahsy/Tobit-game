@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerClick : MonoBehaviour {
     
@@ -14,21 +15,30 @@ public class PlayerClick : MonoBehaviour {
         {
             Field fieldToMove = gameObject.GetComponent<Field>();
             MoveTobit currentMove = (MoveTobit)fieldToMove.MoveOn;
-            currentMove.figure.Move(currentMove, ref GameController.Instance.CurrentBoard.board);
+            currentMove.figure.MovePlayer(currentMove, ref GameController.Instance.CurrentBoard.board);
             EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);
-            GameController.Instance.ChangePlayer();
+            if (currentMove.haveKill && currentFigure.figure.GetMoves(ref GameController.Instance.CurrentBoard.board).ToList().Exists(x => (x as MoveTobit).haveKill))
+            {
+                Move[] moves = currentFigure.figure.GetMoves(ref GameController.Instance.CurrentBoard.board);
+                GameController.Instance.HighLightMoves(moves);
+            }
+            else
+            {
+                GameController.Instance.ChangePlayer();
+            }
+
         }
         if(gameObject.tag == "Figure")
         {
-            ViewFigure figure = gameObject.GetComponent<ViewFigure>();
-            if (figure.figure.color == GameController.Instance.playerColor)
+            ViewFigure selectedFigure = gameObject.GetComponent<ViewFigure>();
+            if (selectedFigure.figure.Color == GameController.Instance.playerColor)
             {
-                if(currentFigure != figure)
+                if(currentFigure != selectedFigure)
                 {                    
                     EventManager.Instance.PostNotification(EVENT_TYPE.DEFAULT);                    
                 }
-                currentFigure = figure;
-                Move[] moves = figure.figure.GetMoves(ref GameController.Instance.CurrentBoard.board);
+                currentFigure = selectedFigure;
+                Move[] moves = selectedFigure.figure.GetMoves(ref GameController.Instance.CurrentBoard.board);
                 GameController.Instance.HighLightMoves(moves);
             }
         }

@@ -5,20 +5,11 @@ using UnityEngine;
 
 public class MoveTobit : Move {
 
-    public int x;
-    public int y;
+    public int col;
+    public int row;
     public bool haveKill;
-    public int delX;
-    public int delY;
+    public int delCol;
+    public int delRow;
     public Figure figure;
-
-    public override void InnerData()
-    {
-        Debug.Log(
-            "x= " + x+"\n"+
-            "y= " + y + "\n" +
-            "figureX= " + figure.x + "\n" +
-            "figureY= " + figure.y + "\n"
-            );
-    }
+   
 }
